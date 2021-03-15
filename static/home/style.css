@@ -136,6 +136,7 @@ body {
   height: 315px;
   margin-bottom: 20px;
   color: white;
+  scroll-behavior: smooth;
 }
 .barTitle {
   margin: 0px;
