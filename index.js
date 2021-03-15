@@ -9,7 +9,7 @@ const ytsr = require('ytsr')
 const ytch = require('yt-channel-info')
 const ytrend = require("yt-trending-scraper")
 const app = express()
-const port = 3009
+const port = process.env.PORT || 3009
 
 app.get('/', (req, res) => {
   fs.readFile('html/home/index.html', 'utf8', function(err, data){
