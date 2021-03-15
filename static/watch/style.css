@@ -24,9 +24,6 @@
     float: none !important;
     width: 100% !important;
   }
-  #desc {
-    display: none;
-  }
   #similar {
     margin-top: 20px;
     float: none !important;
@@ -111,6 +108,32 @@ p {
   width: 75%;
 }
 
+details[open] summary #open {
+  display: none;
+}
+
+details:not([open]) summary #close {
+  display: none;
+}
+
+#summary {
+  color: darkgrey;
+  user-select: none;
+  width: 99%;
+  margin: 0px auto;
+  outline: none;
+}
+
+summary::marker {
+  font-size: 0px;
+  color: transparent;
+  margin: 0px;
+}
+
+#descDetails {
+  margin-bottom: 10px;
+}
+
 #metadata {
   display: block;
   float: left;
@@ -187,6 +210,7 @@ p {
   font-family: 'lexenddeca';
   color: white;
   font-weight: bold;
+  user-select: none;
 }
 
 .suggestion {
