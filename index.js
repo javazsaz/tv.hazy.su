@@ -95,7 +95,7 @@ app.get('/watch', (req, res) => {
       $( '#views' ).text( views.toLocaleString('en-US') + ' views' )
       $( '#authorAvatar' ).attr( 'src',  info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url )
       $( '#authorName' ).text( info.videoDetails.author.name )
-      $( '#desc' ).html( replaceContent(escapeHtml(info.videoDetails.description)) )
+      $( '#desc' ).html( replaceContent(escapeHtml(info.videoDetails.description)).replace(/\n/g, "<br />") )
       $( '#ytLink' ).attr( 'href', `https://youtu.be/${info.videoDetails.videoId}` )
       if (info.player_response.captions != undefined) {
         for (let i = 0; i < info
