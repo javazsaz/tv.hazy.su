@@ -268,6 +268,29 @@ app.get('/api/search', async (req, res) => {
   })
 })
 
+app.get('/api/proxy/video/:format/*', async (req, res) => {
+  let id = req.url.replace('/api/proxy/video/'+req.params.format+'/', '')
+  console.log(id)
+  ytdl.getInfo(id).then(info => {
+    let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
+    if (vidFormats[parseInt(req.params.format)]) {
+      let url = vidFormats[parseInt(req.params.format)].url
+      try {
+        got.stream(url).on("error", function() {
+          res.send()
+        }).on("close", function() {
+          res.send()
+        }).pipe(res)
+      } catch (error) {
+        res.send(error.message)
+      }
+    }else{
+      res.json('that is not an index.')
+    }
+
+  })
+})
+
 app.get('/api/proxy/*', async (req, res) => {
   let url = req.url.replace('/api/proxy/', '')
   try {
