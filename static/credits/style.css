@@ -15,7 +15,7 @@
     height: calc(calc(100vw / 16) * 9) !important;
   }
   body {
-    margin-top: calc(calc(calc(100vw / 16) * 9) + 55px) !important;
+    margin-top: 55px !important;
   }
   #content {
     width: calc(100% - 10px) !important;
@@ -29,6 +29,12 @@
     float: none !important;
     width: 100% !important;
   }
+}
+
+#credits {
+  font-family: 'lexenddeca';
+  margin: 0px 10px;
+  color: white;
 }
 
 #header {
