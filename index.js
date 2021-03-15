@@ -184,33 +184,37 @@ app.get('/search', async (req, res) => {
       $( '#info' ).attr( 'style', 'display: none;' )
       $('#searchBar').attr('value', req.query.q)
       ytsr(req.query.q).then(function(data) {
-        let l = 10
-        if (data.items.length < 10) {
+        let l = 20
+        if (data.items.length < 20) {
           l = data.items.length
         }
         for (let i = 0; i < l; i ++) {
-          let response = `
-          <a href="/watch?v=${data.items[i].id}">
-          <div class="result">
-          <div class="thumb">
-          <img class="staticThumb" src=${data.items[i].bestThumbnail.url}>
-          </div>
-          <div class="resultMeta">
-          <p class="title">${data.items[i].title}</p>
-          <p class="author">${data.items[i].author.name}</p>
-          <p class="viewCount">${data.items[i].views.toLocaleString('en-US')} views</p>
-          </div>
-          </div>
-          </a>
-          `
-          $( '#results' ).append( response )
+          if (data.items[i].type=='video') {
+            let response = `
+            <a href="/watch?v=${data.items[i].id}">
+            <div class="result">
+            <div class="thumb">
+            <img class="staticThumb" src=${data.items[i].bestThumbnail.url}>
+            </div>
+            <div class="resultMeta">
+            <p class="title">${data.items[i].title}</p>
+            <p class="author">${data.items[i].author.name}</p>
+            <p class="viewCount">${data.items[i].views.toLocaleString('en-US')} views</p>
+            </div>
+            </div>
+            </a>
+            `
+            $( '#results' ).append( response )
+          }
         }
         $( '#results' ).append( '<div style="height: 20px;"></div>' )
+        console.log('test: '+$.html()  )
         res.status(200).send($.html())
 
 
       }).catch(function(err) {
-        res.send(err)
+        console.log(err)
+        res.status(500).send(err)
       })
 
     }else{
