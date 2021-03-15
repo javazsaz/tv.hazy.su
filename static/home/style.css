@@ -41,6 +41,7 @@ body {
   background-color: #282828;
   overflow: hidden !important;
   margin: 0px;
+  font-family: 'lexenddeca';
 }
 
 #mobileHeader {
@@ -94,7 +95,6 @@ body {
 .leftBarHover {
   margin-left: 8px;
   margin-right: 8px;
-  font-family: sans-serif;
   color: white;
   opacity: 0;
   transition: opacity 0.2s;
@@ -143,7 +143,6 @@ body {
   margin: 0px;
   line-height: 25px;
   margin-left: 4px;
-  font-family: sans-serif;
   font-weight: bold;
   font-size: 15px;
   margin-bottom: 5px;
@@ -204,10 +203,9 @@ body {
 }
 .title {
   margin: 0px;
-  font-family: sans-serif;
   font-weight: bold;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
   max-height: 20px;
   overflow: hidden;
@@ -216,7 +214,6 @@ body {
 .creator {
   margin: 0px;
   margin-top: 4px;
-  font-family: sans-serif;
   color: white;
   font-size: 12px;
   line-height: 14px;
@@ -225,7 +222,6 @@ body {
 .smallData {
   margin: 0px;
   margin-top: 4px;
-  font-family: sans-serif;
   color: white;
   font-size: 12px;
   line-height: 14px;
@@ -246,13 +242,14 @@ body {
 }
 .optionBar p {
   color: white;
-  font-family: sans-serif;
+
   width: 70px;
   margin: 0px;
   font-size: 18px;
   text-align: center;
   transition: color 0.2s;
   text-decoration: none;
+  font-family: 'lexenddeca';
 }
 .optionBar:hover {
   background-color: rgba(255, 255, 255, 1);

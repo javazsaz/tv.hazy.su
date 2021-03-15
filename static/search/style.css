@@ -1,7 +1,7 @@
 @font-face {
-    font-family: 'Lexend Deca';
-    src: url('/LexendDeca-Regular.woff2') format('woff2'),
-        url('/LexendDeca-Regular.woff') format('woff');
+    font-family: 'lexenddeca';
+    src: url('/lexenddeca-Regular.woff2') format('woff2'),
+        url('/lexenddeca-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -9,7 +9,7 @@
 
 @media (max-width: 900px) {
   #results {
-    font-family: sans-serif;
+    font-family: 'lexenddeca';
     padding: 0px !important;
   }
 }
@@ -38,7 +38,7 @@ form {
   outline: none;
 }
 #results {
-  font-family: sans-serif;
+  font-family: 'lexenddeca';
   height: calc(100vh - 28px);
   overflow-y: auto;
   padding-left: 1%;
@@ -47,7 +47,7 @@ form {
   scrollbar-width: thin;
 }
 #info {
-  font-family: sans-serif;
+  font-family: 'lexenddeca';
   height: calc(100vh - 28px);
   overflow-y: auto;
   padding-left: 1%;

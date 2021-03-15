@@ -114,7 +114,7 @@ p {
 #metadata {
   display: block;
   float: left;
-  font-family: sans-serif;
+  font-family: 'lexenddeca';
   width: calc(65% - 20px);
   margin-right: 20px;
   color: white;
@@ -179,12 +179,12 @@ p {
 #similar a {
   color: white;
   text-decoration: none;
-  font-family: sans-serif
+  font-family: 'lexenddeca'
 }
 
 #similarTitle {
   margin-bottom: 4px;
-  font-family: sans-serif;
+  font-family: 'lexenddeca';
   color: white;
   font-weight: bold;
 }
