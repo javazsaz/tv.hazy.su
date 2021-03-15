@@ -183,7 +183,7 @@ app.get('/search', async (req, res) => {
     if (req.query.q) {
       $( '#info' ).attr( 'style', 'display: none;' )
       $('#searchBar').attr('value', req.query.q)
-      ytsr(req.query.q).then(function(data) => {
+      ytsr(req.query.q).then(function(data) {
         let l = 10
         if (data.items.length < 10) {
           l = data.items.length
