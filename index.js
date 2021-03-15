@@ -285,7 +285,7 @@ app.get('/api/proxy/video/:format/*', async (req, res) => {
         res.send(error.message)
       }
     }else{
-      res.json('that is not an index.')
+      res.status(404).json('that is not an index for the formats array.')
     }
 
   })
