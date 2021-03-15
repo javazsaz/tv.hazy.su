@@ -15,7 +15,7 @@
     height: calc(calc(100vw / 16) * 9) !important;
   }
   body {
-    margin-top: calc(calc(calc(100vw / 16) * 9) + 70px) !important;
+    margin-top: calc(calc(calc(100vw / 16) * 9) + 55px) !important;
   }
   #content {
     width: calc(100% - 10px) !important;
