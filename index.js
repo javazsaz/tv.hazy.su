@@ -183,7 +183,7 @@ app.get('/search', async (req, res) => {
     if (req.query.q) {
       $( '#info' ).attr( 'style', 'display: none;' )
       $('#searchBar').attr('value', req.query.q)
-      ytsr(req.query.q).then( async(data) => {
+      ytsr(req.query.q).then(function(data) => {
         let l = 10
         if (data.items.length < 10) {
           l = data.items.length
@@ -206,8 +206,7 @@ app.get('/search', async (req, res) => {
           $( '#results' ).append( response )
         }
         $( '#results' ).append( '<div style="height: 20px;"></div>' )
-        let html = await $.html()
-        res.status(200).send(html)
+        res.status(200).send($.html())
 
 
       }).catch(function(err) {
