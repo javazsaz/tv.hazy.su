@@ -3,10 +3,10 @@
     position: fixed;
     left: 0px;
     top: 0px;
-    height: 205px !important;
+    height: calc(calc(100vw / 16) * 9) !important;
   }
   body {
-    margin-top: 225px !important;
+    margin-top: calc(calc(calc(100vw / 16) * 9) + 20px) !important;
   }
   #content {
     width: calc(100% - 10px) !important;
@@ -34,6 +34,18 @@ body {
   background-color: #282828;
   margin-bottom: 20px;
   height: calc(100% + 20px);
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-width: thin;
+}
+body::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent; /* or add it to the track */
+}
+body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 p {
@@ -55,8 +67,6 @@ p {
 #content {
   margin: 20px auto;
   width: 75%;
-  height: fit-content;
-  height: -moz-fit-content;
 }
 
 #metadata {

@@ -5,6 +5,7 @@ const cheerio = require('cheerio')
 const absolutify = require('absolutify')
 const ytdl = require('ytdl-core')
 const ytpl = require('ytpl')
+const ytsr = require('ytsr')
 const ytch = require('yt-channel-info')
 const ytrend = require("yt-trending-scraper")
 const app = express()
@@ -23,14 +24,14 @@ app.get('/', (req, res) => {
       for (let i = 0; i < data.length; i ++) {
         let video = `
         <a href="watch?v=${data[i].videoId}">
-          <div class="vid">
-            <img class="thumb" src="https://i.ytimg.com/vi/${data[i].videoId}/hqdefault.jpg">
-            <div class="metadata">
-              <p class="title">${data[i].title}</p>
-              <p class="creator">${data[i].author}</p>
-              <p class="smallData">${data[i].viewCount.toLocaleString('en-US')} views</p>
-            </div>
-          </div>
+        <div class="vid">
+        <img class="thumb" src="https://i.ytimg.com/vi/${data[i].videoId}/hqdefault.jpg">
+        <div class="metadata">
+        <p class="title">${data[i].title}</p>
+        <p class="creator">${data[i].author}</p>
+        <p class="smallData">${data[i].viewCount.toLocaleString('en-US')} views</p>
+        </div>
+        </div>
         </a>
         `
 
@@ -41,24 +42,24 @@ app.get('/', (req, res) => {
         for (let i = 0; i < data.length; i ++) {
           let video = `
           <a href="watch?v=${data[i].videoId}">
-            <div class="vid">
-              <img class="thumb" src="https://i.ytimg.com/vi/${data[i].videoId}/hqdefault.jpg">
-              <div class="metadata">
-                <p class="title">${data[i].title}</p>
-                <p class="creator">${data[i].author}</p>
-                <p class="smallData">${data[i].viewCount.toLocaleString('en-JP')} views</p>
-              </div>
-            </div>
+          <div class="vid">
+          <img class="thumb" src="https://i.ytimg.com/vi/${data[i].videoId}/hqdefault.jpg">
+          <div class="metadata">
+          <p class="title">${data[i].title}</p>
+          <p class="creator">${data[i].author}</p>
+          <p class="smallData">${data[i].viewCount.toLocaleString('en-JP')} views</p>
+          </div>
+          </div>
           </a>
           `
 
           $( '#jpBar' ).append( video )
         }
         res.send($.html())
-        }).catch((error)=>{
-          res.json(err)
-          console.log(err)
-        })
+      }).catch((error)=>{
+        res.json(err)
+        console.log(err)
+      })
 
     }).catch((error)=>{
       res.json(err)
@@ -96,38 +97,42 @@ app.get('/watch', (req, res) => {
       $( '#authorName' ).text( info.videoDetails.author.name )
       $( '#desc' ).html( replaceContent(escapeHtml(info.videoDetails.description)) )
 
+      if (info.related_videos.length==0) {
+        $( '#similar' ).attr( 'style', 'display: none;' )
+      }
+
       for (let i = 0; i < info.related_videos.length; i ++) {
         let video = ''
         if (info.related_videos[i].richThumbnails.length) {
           video = `
           <a href="/watch?v=${info.related_videos[i].id}">
-            <div class="suggestion">
-              <div class="thumb">
-                <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
-                <img class="moveThumb" src=${info.related_videos[i].richThumbnails[info.related_videos[i].richThumbnails.length-1].url}>
-              </div>
-              <div class="suggestMeta">
-                <p class="title">${info.related_videos[i].title}</p>
-                <p class="author">${info.related_videos[i].author.name}</p>
-                <p class="viewCount">${info.related_videos[i].short_view_count_text}</p>
-              </div>
-            </div>
+          <div class="suggestion">
+          <div class="thumb">
+          <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+          <img class="moveThumb" src=${info.related_videos[i].richThumbnails[info.related_videos[i].richThumbnails.length-1].url}>
+          </div>
+          <div class="suggestMeta">
+          <p class="title">${info.related_videos[i].title}</p>
+          <p class="author">${info.related_videos[i].author.name}</p>
+          <p class="viewCount">${info.related_videos[i].short_view_count_text}</p>
+          </div>
+          </div>
           </a>
           `
         }else{
           video = `
           <a href="/watch?v=${info.related_videos[i].id}">
-            <div class="suggestion">
-              <div class="thumb">
-                <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
-                <img class="moveThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
-              </div>
-              <div class="suggestMeta">
-                <p class="title">${info.related_videos[i].title}</p>
-                <p class="author">${info.related_videos[i].author.name}</p>
-                <p class="viewCount">${info.related_videos[i].short_view_count_text}</p>
-              </div>
-            </div>
+          <div class="suggestion">
+          <div class="thumb">
+          <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+          <img class="moveThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+          </div>
+          <div class="suggestMeta">
+          <p class="title">${info.related_videos[i].title}</p>
+          <p class="author">${info.related_videos[i].author.name}</p>
+          <p class="viewCount">${info.related_videos[i].short_view_count_text}</p>
+          </div>
+          </div>
           </a>
           `
         }
@@ -149,6 +154,55 @@ app.get('/watch', (req, res) => {
 
 
 
+
+  })
+})
+
+app.get('/search', (req, res) => {
+  fs.readFile('html/search/index.html', 'utf8', function(err, data){
+    if (err) {
+      console.log(err)
+      res.status(500).send('server error.')
+      return
+    }
+    const $ = cheerio.load(data)
+
+    if (req.query.q) {
+      $( '#info' ).attr( 'style', 'display: none;' )
+      $('#searchBar').attr('value', req.query.q)
+      ytsr(req.query.q).then(function(data) {
+        let l = 10
+        if (data.items.length < 10) {
+          l = data.items.length
+        }
+        for (let i = 0; i < l; i ++) {
+          let response = `
+          <a href="/watch?v=${data.items[i].id}">
+          <div class="result">
+          <div class="thumb">
+          <img class="staticThumb" src=${data.items[i].bestThumbnail.url}>
+          </div>
+          <div class="resultMeta">
+          <p class="title">${data.items[i].title}</p>
+          <p class="author">${data.items[i].author.name}</p>
+          <p class="viewCount">${data.items[i].views.toLocaleString('en-US')} views</p>
+          </div>
+          </div>
+          </a>
+          `
+          $( '#results' ).append( response )
+        }
+        $( '#results' ).append( '<div style="height: 20px;"></div>' )
+        res.status(200).send($.html())
+
+      }).catch(function(err) {
+        res.send(err)
+      })
+
+    }else{
+      $( '#results' ).attr( 'style', 'display: none;' )
+      res.status(200).send($.html())
+    }
 
   })
 })
@@ -182,6 +236,14 @@ app.get('/api/playlist/*', async (req, res) => {
   })
 })
 
+app.get('/api/search', async (req, res) => {
+  ytsr(req.query.q).then(function(data) {
+    res.send(data)
+  }).catch(function(err) {
+    res.send(err)
+  })
+})
+
 app.get('/api/proxy/*', async (req, res) => {
   let url = req.url.replace('/api/proxy/', '')
   try {
@@ -203,11 +265,11 @@ app.listen(port, () => {
 
 function escapeHtml(unsafe) {
   return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  .replace(/&/g, "&amp;")
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;")
+  .replace(/"/g, "&quot;")
+  .replace(/'/g, "&#039;");
 }
 
 function replaceContent(content) {

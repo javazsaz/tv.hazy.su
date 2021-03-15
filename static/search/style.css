@@ -1,0 +1,108 @@
+@media (max-width: 900px) {
+  #results {
+    font-family: sans-serif;
+    padding: 0px !important;
+  }
+}
+
+body {
+  background-color: #282828;
+  overflow: hidden !important;
+  margin: 0px;
+  color: white;
+  height: 100%;
+}
+p {
+  margin: 0px;
+}
+form {
+  margin: 0px;
+}
+#searchBar {
+  width: calc(100% - 10px);
+  font-size: 18px;
+  height: 18px;
+  border: none;
+  margin: 5px;
+  border-radius: 4px;
+  padding: 0px 4px;
+  outline: none;
+}
+#results {
+  font-family: sans-serif;
+  height: calc(100vh - 28px);
+  overflow-y: auto;
+  padding-left: 1%;
+  padding-right: 1%;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-width: thin;
+}
+#info {
+  font-family: sans-serif;
+  height: calc(100vh - 28px);
+  overflow-y: auto;
+  padding-left: 1%;
+  padding-right: 1%;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-width: thin;
+  text-align: center;
+  margin-top: 20px;
+}
+#results::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent; /* or add it to the track */
+}
+#results::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+#results::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+
+
+.result {
+  display: block;
+  height: 78.75px;
+  margin: 2px 0px;
+  transition: margin 0.2s;
+}
+
+.thumb {
+  display: block;
+  float: left;
+  width: 140px;
+  height: 78.75px;
+  margin-right: 5px;
+}
+
+.resultMeta {
+  display: block;
+  float: left;
+  height: 78.75px;
+  width: calc(100% - 145px);
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.result:hover {
+  margin: 6px 0px;
+}
+
+.thumb img {
+  width: 140px;
+  height: 100%;
+}
+
+.title {
+  color: white;
+}
+
+.author {
+  color: #aaaaaa;
+}
+
+.viewCount {
+  color: #aaaaaa;
+}
