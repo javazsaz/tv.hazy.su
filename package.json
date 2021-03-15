@@ -1,0 +1,23 @@
+{
+  "name": "tv.hazy.su",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "absolutify": "^0.1.0",
+    "cheerio": "^1.0.0-rc.5",
+    "express": "^4.17.1",
+    "got": "^11.8.2",
+    "yt-channel-info": "^1.3.0",
+    "yt-trending-scraper": "^1.1.0",
+    "ytdl-core": "^4.5.0",
+    "ytpl": "^2.0.5"
+  }
+}

@@ -1,0 +1,187 @@
+@media (max-width: 900px) {
+  #player {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 205px !important;
+  }
+  body {
+    margin-top: 225px !important;
+  }
+  #content {
+    width: calc(100% - 10px) !important;
+  }
+  #metadata {
+    float: none !important;
+    width: 100% !important;
+  }
+  #desc {
+    display: none;
+  }
+  #similar {
+    margin-top: 20px;
+    float: none !important;
+    width: 100% !important;
+  }
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0px;
+  background-color: #282828;
+  margin-bottom: 20px;
+  height: calc(100% + 20px);
+}
+
+p {
+  margin: 0px;
+}
+
+#player {
+  width: 100%;
+  height: 75%;
+  background-color: black;
+}
+
+#views {
+  width: 99%;
+  margin: 0px auto;
+  margin-top: 5px;
+}
+
+#content {
+  margin: 20px auto;
+  width: 75%;
+  height: fit-content;
+  height: -moz-fit-content;
+}
+
+#metadata {
+  display: block;
+  float: left;
+  font-family: sans-serif;
+  width: calc(65% - 20px);
+  margin-right: 20px;
+  color: white;
+  word-wrap: break-word;
+}
+
+#title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#authorObj {
+  height: 40px;
+  overflow: hidden;
+  margin: 10px auto;
+  margin-bottom: 10px;
+  width: 99%;
+}
+
+.avatar {
+  height: 100%;
+  border-radius: 20px;
+}
+
+#authorAvatar {
+  display: block;
+  float: left;
+}
+
+#authorName {
+  display: block;
+  float: left;
+  height: 100%;
+  line-height: 40px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#desc {
+  white-space: pre-wrap;
+  margin: 0 auto;
+  width: 99%;
+  word-break: break-word;
+}
+
+#desc a {
+  color: #3ea6ff;
+  text-decoration: none;
+}
+
+#similar {
+  display: block;
+  float: left;
+  width: 35%;
+}
+
+#similar a {
+  color: white;
+  text-decoration: none;
+  font-family: sans-serif
+}
+
+#similarTitle {
+  margin-bottom: 4px;
+  font-family: sans-serif;
+  color: white;
+  font-weight: bold;
+}
+
+.suggestion {
+  display: block;
+  height: 78.75px;
+  margin: 2px 0px;
+  transition: margin 0.2s;
+}
+
+.thumb {
+  display: block;
+  float: left;
+  width: 140px;
+  height: 78.75px;
+  margin-right: 5px;
+}
+
+.suggestMeta {
+  display: block;
+  float: left;
+  height: 78.75px;
+  width: calc(100% - 145px);
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.suggestion:hover {
+  margin: 6px 0px;
+}
+
+.suggestion:hover .staticThumb {
+  display: none !important;
+}
+
+.suggestion:hover .moveThumb {
+  display: block !important;
+}
+
+.moveThumb {
+  display: none;
+}
+
+.thumb img {
+  width: 140px;
+  height: 100%;
+}
+
+.author {
+  color: #aaaaaa;
+}
+
+.viewCount {
+  color: #aaaaaa;
+}
