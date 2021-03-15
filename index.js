@@ -92,7 +92,7 @@ app.get('/watch', (req, res) => {
       let audio = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' })
       let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
       for (let i = 0; i < vidFormats.length; i ++) {
-        let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}" type='${vidFormats[i].mimeType}'>`
+        let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
         $( '#player' ).prepend( vidTrack )
       }
       $( '#player' ).attr( 'poster',  info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url )
