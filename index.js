@@ -1,4 +1,5 @@
 const fs = require('fs')
+const cors = require('cors')
 const express = require('express')
 const got = require('got')
 const cheerio = require('cheerio')
@@ -10,6 +11,8 @@ const ytch = require('yt-channel-info')
 const ytrend = require("yt-trending-scraper")
 const app = express()
 const port = process.env.PORT || 3009
+
+app.use(cors())
 
 app.get('/', (req, res) => {
   fs.readFile('html/home/index.html', 'utf8', function(err, data){
