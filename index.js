@@ -97,6 +97,18 @@ app.get('/watch', (req, res) => {
       $( '#authorName' ).text( info.videoDetails.author.name )
       $( '#desc' ).html( replaceContent(escapeHtml(info.videoDetails.description)) )
       $( '#ytLink' ).attr( 'href', `https://youtu.be/${info.videoDetails.videoId}` )
+      if (info.player_response.captions != undefined) {
+        for (let i = 0; i < info
+				.player_response.captions
+				.playerCaptionsTracklistRenderer.captionTracks.length; i ++) {
+          let track = info
+  				.player_response.captions
+  				.playerCaptionsTracklistRenderer.captionTracks[i]
+          let caption = `<track label="${track.name.simpleText}" kind="captions" srclang="${track.languageCode}" src="/api/proxy/${track.baseUrl}&fmt=vtt">`
+          $( '#player' ).append( caption )
+        }
+			}
+
 
       if (info.related_videos.length==0) {
         $( '#similar' ).attr( 'style', 'display: none;' )
