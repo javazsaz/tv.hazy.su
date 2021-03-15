@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Lexend Deca';
+    src: url('/LexendDeca-Regular.woff2') format('woff2'),
+        url('/LexendDeca-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @media (max-width: 900px) {
   #results {
     font-family: sans-serif;

@@ -1,12 +1,21 @@
+@font-face {
+    font-family: 'lexenddeca';
+    src: url('/LexendDeca-Regular.woff2') format('woff2'),
+        url('/LexendDeca-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @media (max-width: 900px) {
   #player {
     position: fixed;
     left: 0px;
-    top: 0px;
+    top: 50px;
     height: calc(calc(100vw / 16) * 9) !important;
   }
   body {
-    margin-top: calc(calc(calc(100vw / 16) * 9) + 20px) !important;
+    margin-top: calc(calc(calc(100vw / 16) * 9) + 70px) !important;
   }
   #content {
     width: calc(100% - 10px) !important;
@@ -25,6 +34,37 @@
   }
 }
 
+#header {
+  background-color: #282828;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height: 50px;
+  width: calc(100% - 20px);
+  padding: 0px 10px;
+  font-family: 'lexenddeca';
+  overflow: hidden;
+}
+
+#header #siteTitle {
+  float: left;
+  margin: 10px 0px;
+  line-height: 30px;
+  font-size: 30px;
+  font-family: 'lexenddeca';
+  color: white;
+}
+
+#header #searchLink {
+  float: right;
+  margin: 10px 0px;
+  line-height: 30px;
+  font-size: 20px;
+  font-family: 'lexenddeca';
+  color: white;
+  text-decoration: none;
+}
+
 html {
   height: 100%;
 }
@@ -33,6 +73,7 @@ body {
   margin: 0px;
   background-color: #282828;
   margin-bottom: 20px;
+  margin-top: 50px;
   height: calc(100% + 20px);
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   scrollbar-width: thin;
