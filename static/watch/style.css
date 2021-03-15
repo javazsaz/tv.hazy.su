@@ -165,6 +165,10 @@ p {
   text-decoration: none;
 }
 
+#ytLink {
+  color: white;
+}
+
 #similar {
   display: block;
   float: left;

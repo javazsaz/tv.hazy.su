@@ -96,6 +96,7 @@ app.get('/watch', (req, res) => {
       $( '#authorAvatar' ).attr( 'src',  info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url )
       $( '#authorName' ).text( info.videoDetails.author.name )
       $( '#desc' ).html( replaceContent(escapeHtml(info.videoDetails.description)) )
+      $( '#ytLink' ).attr( 'href', `https://youtu.be/${info.videoDetails.videoId}` )
 
       if (info.related_videos.length==0) {
         $( '#similar' ).attr( 'style', 'display: none;' )
