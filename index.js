@@ -231,6 +231,20 @@ app.get('/search', async (req, res) => {
   })
 })
 
+app.get('/credits', async (req, res) => {
+  fs.readFile('html/credits/index.html', 'utf8', function(err, data){
+    if (err) {
+      console.log(err)
+      res.status(500).send('server error.')
+      return
+    }
+    const $ = cheerio.load(data)
+
+    res.status(200).send($.html())
+
+  })
+})
+
 app.use(express.static('static'))
 
 app.get('/api/video/*', async (req, res) => {
