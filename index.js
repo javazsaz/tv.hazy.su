@@ -93,9 +93,23 @@ app.get('/watch', (req, res) => {
       let video = ytdl.chooseFormat(info.formats, { quality: 'highest' })
       let audio = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' })
       let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
-      for (let i = 0; i < vidFormats.length; i ++) {
-        let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
-        $( '#player' ).prepend( vidTrack )
+      if (req.cookies.proxyOn=='true') {
+        for (let i = 0; i < vidFormats.length; i ++) {
+          let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
+          $( '#player' ).prepend( vidTrack )
+        }
+      }else{
+        if (!req.cookies.proxyOn) {
+          for (let i = 0; i < vidFormats.length; i ++) {
+            let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
+            $( '#player' ).prepend( vidTrack )
+          }
+        }else{
+          for (let i = 0; i < vidFormats.length; i ++) {
+            let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}" type='${vidFormats[i].mimeType}'>`
+            $( '#player' ).prepend( vidTrack )
+          }
+        }
       }
 
       $( '#player' ).attr( 'poster',  info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url )
@@ -326,6 +340,32 @@ app.get('/credits', async (req, res) => {
   })
 })
 
+app.get('/settings', async (req, res) => {
+  fs.readFile('html/settings/index.html', 'utf8', function(err, data){
+    if (err) {
+      console.log(err)
+      res.status(500).send('server error.')
+      return
+    }
+    const $ = cheerio.load(data)
+
+    if (req.cookies.proxyOn=='true') {
+      $( '#proxyLabel' ).text( 'Video proxy is currently on.' )
+      $( '#proxyInput' ).attr( 'value', 'Disable video proxy' )
+    }else{
+      if (!req.cookies.proxyOn) {
+        $( '#proxyLabel' ).text( 'Video proxy is currently on.' )
+        $( '#proxyInput' ).attr( 'value', 'Disable video proxy' )
+      }else{
+        $( '#proxyLabel' ).text( 'Video proxy is currently off.' )
+        $( '#proxyInput' ).attr( 'value', 'Enable video proxy' )
+      }
+    }
+
+    res.status(200).send($.html())
+
+  })
+})
 
 app.get('/api/video/*', async (req, res) => {
   let id = req.url.replace('/api/video/', '')
@@ -399,6 +439,19 @@ app.get('/api/proxy/*', async (req, res) => {
   } catch (error) {
     res.send(error.message)
   }
+})
+
+app.post('/settings/toggleProxy', async (req, res) => {
+  if (req.cookies.proxyOn=='true') {
+    res.cookie('proxyOn', 'false', { maxAge: 31540000 })
+  }else{
+    if (!req.cookies.proxyOn) {
+      res.cookie('proxyOn', 'false', { maxAge: 31540000 })
+    }else{
+      res.cookie('proxyOn', 'true', { maxAge: 31540000 })
+    }
+  }
+  res.redirect('/settings')
 })
 
 app.listen(port, () => {
