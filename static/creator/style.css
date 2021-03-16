@@ -8,17 +8,6 @@
 }
 
 @media (max-width: 900px) {
-  #leftBar {
-    display: none;
-  }
-  #content {
-    margin-left: 0px !important;
-    padding: 0px !important;
-    margin-top: 50px;
-  }
-  .leftBarHover {
-    opacity: 0 !important;
-  }
   .vid {
     width: 200px !important;
     height: 190px !important;
@@ -32,23 +21,37 @@
   .contentBar {
     height: 225px !important;
   }
-  #mobileHeader {
-    display: block !important;
+  #quickInfo {
+    height: 75px !important;
   }
-  #settingsLink {
-    display: inline-block !important;
+  #channelName {
+    margin-top: 12.5px !important;
   }
+  #subCount {
+    margin-bottom: 18.75px !important;
+    line-height: 18.75px !important;
+    height: 18.75px !important;
+    font-size: 18.75 !important;
+  }
+}
+
+html {
+  height: 100%;
 }
 
 body {
-  background-color: #282828;
-  overflow: hidden !important;
   margin: 0px;
-  font-family: 'lexenddeca';
+  margin-top: 50px;
+  background-color: #282828;
+  height: calc(100% - 50px);
+  overflow: hidden;
 }
 
-#mobileHeader {
-  display: none;
+p {
+  margin: 0px;
+}
+
+#header {
   background-color: #282828;
   position: fixed;
   left: 0px;
@@ -60,7 +63,7 @@ body {
   overflow: hidden;
 }
 
-#mobileHeader #siteTitle {
+#header #siteTitle {
   float: left;
   margin: 10px 0px;
   line-height: 30px;
@@ -70,7 +73,7 @@ body {
   text-decoration: none;
 }
 
-#mobileHeader #searchLink {
+#header #searchLink {
   float: right;
   margin: 10px 0px;
   line-height: 30px;
@@ -80,37 +83,49 @@ body {
   text-decoration: none;
 }
 
-#leftBar {
-  background-color: #282828;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100px;
-  height: calc(100% - 60px);
-  padding-top: 30px;
-  padding-bottom: 30px;
-  border-right: 0px solid rgba(255, 255, 255, 0);
-  transition: width 0.2s, border 0.2s;
+#banner {
+  width: 100%;
+  height: calc(100px + 25%);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  max-height: calc(100vw * 0.16);
 }
-#leftBar:hover {
-  width: 400px;
+#quickInfo {
+  background: #111111;
+  height: 100px;
+  padding: 0px 12%;
+  margin-bottom: 20px;
 }
-.leftBarHover {
-  margin-left: 8px;
-  margin-right: 8px;
+#avatar {
+  float: left;
+  height: 100%;
+  border-radius: 50%;
+}
+#user {
+  float: left;
+  height: 100%;
+  margin-left: 10px;
+}
+#channelName {
+  margin-top: 25px;
+  line-height: 25px;
+  height: 25px;
+  font-size: 25px;
   color: white;
-  opacity: 0;
-  transition: opacity 0.2s;
+  font-family: 'lexenddeca';
 }
-#leftBar:hover .leftBarHover {
-  opacity: 1;
+#subCount {
+  margin-bottom: 25px;
+  line-height: 25px;
+  height: 25px;
+  font-size: 25px;
+  color: white;
+  font-family: 'lexenddeca';
 }
+
 #content {
-  padding-top: 30px;
-  padding-bottom: 30px;
-  height: calc(100vh - 60px);
-  margin-left: 100px;
-  transition: margin-left 0.2s;
+  height: 100%;
+  padding-bottom: -200px;
   overflow-y: auto;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   scrollbar-width: thin;
@@ -125,22 +140,15 @@ body {
 #content::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.1);
 }
-#leftBar:hover ~ #content {
-  margin-left: 405px;
-}
-.icon {
-  display: block;
-  width: 70px;
-  margin-left: 15px;
-  background: rgba(255, 255, 255, 0);
-  margin-bottom: 20px;
-}
+
+
 .contentBar {
   width: 100%;
   height: 315px;
   margin-bottom: 20px;
   color: white;
   scroll-behavior: smooth;
+  font-family: 'lexenddeca';
 }
 .barTitle {
   margin: 0px;
@@ -229,46 +237,4 @@ body {
   font-size: 12px;
   line-height: 14px;
   max-height: 14px;
-}
-#player {
-  width: 100%;
-  height: 100%;
-}
-.optionBar {
-  width: calc(100% - 30px);
-  transition: background-color 0.2s;
-  padding: 4px 15px;
-  margin: 4px 0px;
-  user-select: none;
-  text-decoration: none;
-  outline: none;
-}
-.optionBar p {
-  color: white;
-
-  width: 70px;
-  margin: 0px;
-  font-size: 18px;
-  text-align: center;
-  transition: color 0.2s;
-  text-decoration: none;
-  font-family: 'lexenddeca';
-}
-.optionBar:hover {
-  background-color: rgba(255, 255, 255, 1);
-}
-.optionBar:hover p {
-  color: #282828;
-}
-#settingsLink {
-  background-color: #282828;
-  display: none;
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  color: white;
-  border-top: 1px solid white;
-  text-decoration: none;
-  text-align: center;
-  width: 100%;
 }

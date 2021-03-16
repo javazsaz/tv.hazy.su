@@ -24,7 +24,7 @@
     float: none !important;
     width: 100% !important;
   }
-  #similar { 
+  #similar {
     margin-top: 20px;
     float: none !important;
     width: 100% !important;
@@ -73,6 +73,7 @@ body {
   margin-bottom: 20px;
   margin-top: 50px;
   height: calc(100% + 20px);
+  overflow-y: auto;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   scrollbar-width: thin;
 }
@@ -162,6 +163,10 @@ summary::marker {
   border-radius: 20px;
 }
 
+#channelLink {
+  outline: none;
+}
+
 #authorAvatar {
   display: block;
   float: left;
@@ -175,6 +180,7 @@ summary::marker {
   margin-left: 10px;
   font-size: 20px;
   font-weight: bold;
+  color: white;
 }
 
 #desc {

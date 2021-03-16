@@ -1,6 +1,7 @@
 const fs = require('fs')
 const cors = require('cors')
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const got = require('got')
 const cheerio = require('cheerio')
 const absolutify = require('absolutify')
@@ -13,6 +14,7 @@ const app = express()
 const port = process.env.PORT || 3009
 
 app.use(cors())
+app.use(cookieParser())
 
 app.get('/', (req, res) => {
   fs.readFile('html/home/index.html', 'utf8', function(err, data){
@@ -95,10 +97,12 @@ app.get('/watch', (req, res) => {
         let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
         $( '#player' ).prepend( vidTrack )
       }
+
       $( '#player' ).attr( 'poster',  info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url )
       $( '#title' ).text( info.videoDetails.title )
       let views = parseInt(info.videoDetails.viewCount)
       $( '#views' ).text( views.toLocaleString('en-US') + ' views' )
+      $( '#channelLink' ).attr('href', `/creator/${info.videoDetails.author.id}`)
       $( '#authorAvatar' ).attr( 'src',  info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url )
       $( '#authorName' ).text( info.videoDetails.author.name )
       $( '#desc' ).html( replaceContent(escapeHtml(info.videoDetails.description)).replace(/\n/g, "<br />") )
@@ -231,6 +235,83 @@ app.get('/search', async (req, res) => {
   })
 })
 
+app.use(express.static('static'))
+
+app.get('/creator/:channelID', async (req, res) => {
+  fs.readFile('html/channel/index.html', 'utf8', function(err, data){
+    if (err) {
+      console.log(err)
+      res.status(500).send('server error.')
+      return
+    }
+    const $ = cheerio.load(data)
+
+    ytch.getChannelInfo(req.params.channelID).then((response) => {
+      $('#banner').attr('style', `background-image: url("${response.authorBanners[0].url}");`)
+      $('#avatar').attr('src', response.authorThumbnails[0].url)
+      $('title').text(`${response.author} - tv.hazy.su`)
+      $('#channelName').text(`${response.author}`)
+      $('#subCount').text(`${response.subscriberText}`)
+
+      ytch.getChannelVideos(req.params.channelID, 'newest').then((vids) => {
+
+        for (let i = 0; i < vids.items.length; i ++) {
+          let video = `
+          <a href="/watch?v=${vids.items[i].videoId}">
+          <div class="vid">
+          <img class="thumb" src="https://i.ytimg.com/vi/${vids.items[i].videoId}/hqdefault.jpg">
+          <div class="metadata">
+          <p class="title">${vids.items[i].title}</p>
+          <p class="creator">${vids.items[i].author}</p>
+          <p class="smallData">${vids.items[i].viewCount.toLocaleString('en-US')} views</p>
+          </div>
+          </div>
+          </a>
+          `
+
+          $( '#recentBar' ).append( video )
+        }
+
+        ytch.getChannelVideos(req.params.channelID, 'popular').then((vids) => {
+
+          for (let i = 0; i < vids.items.length; i ++) {
+            let video = `
+            <a href="watch?v=${vids.items[i].videoId}">
+            <div class="vid">
+            <img class="thumb" src="https://i.ytimg.com/vi/${vids.items[i].videoId}/hqdefault.jpg">
+            <div class="metadata">
+            <p class="title">${vids.items[i].title}</p>
+            <p class="creator">${vids.items[i].author}</p>
+            <p class="smallData">${vids.items[i].viewCount.toLocaleString('en-US')} views</p>
+            </div>
+            </div>
+            </a>
+            `
+
+            $( '#popularBar' ).append( video )
+          }
+
+
+
+          res.status(200).send($.html())
+
+        }).catch((err) => {
+          res.send(err)
+        })
+
+      }).catch((err) => {
+        res.send(err)
+      })
+
+    }).catch((err) => {
+      res.status(500).send(err)
+      console.log(err)
+      res.send(err)
+    })
+
+  })
+})
+
 app.get('/credits', async (req, res) => {
   fs.readFile('html/credits/index.html', 'utf8', function(err, data){
     if (err) {
@@ -245,7 +326,6 @@ app.get('/credits', async (req, res) => {
   })
 })
 
-app.use(express.static('static'))
 
 app.get('/api/video/*', async (req, res) => {
   let id = req.url.replace('/api/video/', '')
@@ -256,7 +336,11 @@ app.get('/api/video/*', async (req, res) => {
 
 app.get('/api/channel/:user', (req, res) => {
   ytch.getChannelInfo(req.params.user).then((response) => {
-    res.status(200).send(response)
+    ytch.getChannelVideos(req.params.user, 'newest').then((vids) => {
+      res.send({info: response, videos: vids})
+    }).catch((err) => {
+      res.send(err)
+    })
   }).catch((err) => {
     res.status(500).send(err)
     console.log(err)
@@ -284,7 +368,6 @@ app.get('/api/search', async (req, res) => {
 
 app.get('/api/proxy/video/:format/*', async (req, res) => {
   let id = req.url.replace('/api/proxy/video/'+req.params.format+'/', '')
-  console.log(id)
   ytdl.getInfo(id).then(info => {
     let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
     if (vidFormats[parseInt(req.params.format)]) {

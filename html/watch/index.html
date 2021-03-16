@@ -2,7 +2,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>tv.hazy.su</title>
-  <link rel="stylesheet" href="watch/style.css">
+  <link rel="stylesheet" href="/watch/style.css">
 </head>
 <body>
   <script>0</script>
@@ -11,26 +11,30 @@
     <a id="siteTitle" href="/">tv.hazy.su</a>
     <a id="searchLink" href="/search">search</a>
   </div>
-  <video id="player" poster="thumb" controls>
-    Your browser does not support the video tag.
-  </video>
-  <div id="content">
-    <div id="metadata">
-      <p id="title"></p>
-      <p id="views"></p>
-      <div id="authorObj">
-        <img id="authorAvatar" class="avatar" src="avatar">
-        <p id="authorName"></p>
+  <div id="page">
+    <video id="player" poster="thumb" controls>
+      Your browser does not support the video tag.
+    </video>
+    <div id="content">
+      <div id="metadata">
+        <p id="title"></p>
+        <p id="views"></p>
+        <a id="channelLink">
+          <div id="authorObj">
+            <img id="authorAvatar" class="avatar" src="avatar">
+            <p id="authorName"></p>
+          </div>
+        </a>
+        <details id="descDetails">
+         <summary id="summary"><span id="open">Show</span><span id="close">Hide</span> Description</summary>
+         <p id="desc"></p>
+         <br>
+        </details>
+        <a id="ytLink">View on YouTube</a>
       </div>
-      <details id="descDetails">
-       <summary id="summary"><span id="open">Show</span><span id="close">Hide</span> Description</summary>
-       <p id="desc"></p>
-       <br>
-      </details>
-      <a id="ytLink">View on YouTube</a>
-    </div>
-    <div id="similar">
-      <p id="similarTitle">Similar Videos</p>
+      <div id="similar">
+        <p id="similarTitle">Similar Videos</p>
+      </div>
     </div>
   </div>
 </body>

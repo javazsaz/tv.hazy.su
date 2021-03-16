@@ -14,9 +14,6 @@
     top: 50px;
     height: calc(calc(100vw / 16) * 9) !important;
   }
-  body {
-    margin-top: 55px !important;
-  }
   #content {
     width: calc(100% - 10px) !important;
   }
@@ -78,7 +75,7 @@ body {
   background-color: #282828;
   margin-bottom: 20px;
   margin-top: 50px;
-  height: calc(100% + 20px);
+  height: calc(100% - 70px);
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   scrollbar-width: thin;
 }
