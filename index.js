@@ -371,6 +371,9 @@ app.get('/api/video/*', async (req, res) => {
   let id = req.url.replace('/api/video/', '')
   ytdl.getInfo(id).then(info => {
     res.json(info)
+  }).catch((err) => {
+    res.status(500).send(err)
+    console.log(err)
   })
 })
 
