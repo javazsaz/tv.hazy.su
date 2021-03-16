@@ -151,7 +151,7 @@ app.get('/watch', (req, res) => {
           <div class="suggestMeta">
           <p class="title">${info.related_videos[i].title}</p>
           <p class="author">${info.related_videos[i].author.name}</p>
-          <p class="viewCount">${info.related_videos[i].short_view_count_text}</p>
+          <p class="viewCount">${info.related_videos[i].short_view_count_text} views</p>
           </div>
           </div>
           </a>
@@ -167,7 +167,7 @@ app.get('/watch', (req, res) => {
           <div class="suggestMeta">
           <p class="title">${info.related_videos[i].title}</p>
           <p class="author">${info.related_videos[i].author.name}</p>
-          <p class="viewCount">${info.related_videos[i].short_view_count_text}</p>
+          <p class="viewCount">${info.related_videos[i].short_view_count_text} views</p>
           </div>
           </div>
           </a>
