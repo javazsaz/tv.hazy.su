@@ -2,6 +2,8 @@ const fs = require('fs')
 const cors = require('cors')
 const express = require('express')
 const cookieParser = require('cookie-parser')
+const Discord = require('discord.js')
+require('dotenv').config()
 const got = require('got')
 const cheerio = require('cheerio')
 const absolutify = require('absolutify')
@@ -12,6 +14,11 @@ const ytch = require('yt-channel-info')
 const ytrend = require("yt-trending-scraper")
 const app = express()
 const port = process.env.PORT || 3009
+const client = new Discord.Client()
+
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`)
+})
 
 app.use(cors())
 app.use(cookieParser())
@@ -310,18 +317,39 @@ app.get('/creator/:channelID', async (req, res) => {
           return
 
         }).catch((err) => {
-          res.send(err)
+          console.log(err)
+          res.status(500).send($.html())
           return
         })
 
       }).catch((err) => {
-        res.send(err)
+        console.log(err)
+        res.status(500).send($.html())
         return
       })
 
     }).catch((err) => {
       console.log(err)
-      res.send(err)
+      $('#banner').attr('style', `display: none;`)
+      $('.contentBar').attr('style', `display: none;`)
+      $('#error').attr('style', `display: inline-block;`)
+      $('title').text(`Error - tv.hazy.su`)
+      $('#channelName').text(`Error!`)
+      $('#subCount').text(`Oops.`)
+      if ((err+'').includes("Cannot read property 'title' of undefined")) {
+        $('#error').text(`Something went wrong while gathering information about this creator.`)
+        sendMessage((err.stack+'').slice(0, 1700), 'ERROR')
+      }
+      if (err.isAxiosError) {
+        if (err.response.status == 404) {
+          $('#error').text(`This creator doesn't exist.`)
+          sendMessage((err.stack+'').slice(0, 1700), 'ERROR')
+        }else{
+          $('#error').text(`Something went wrong.`)
+          sendMessage((err.stack+'').slice(0, 1700), 'NEW_ERROR')
+        }
+      }
+      res.status(500).send($.html())
     })
 
   })
@@ -480,3 +508,9 @@ function replaceContent(content) {
   let new_content=element_content.replace(new_exp_match, '$1<a target="_blank" href="http://$2">$2</a>');
   return new_content;
 }
+
+function sendMessage(text, channelIDenv) {
+  client.channels.cache.get(process.env[channelIDenv]).send(text)
+}
+
+client.login(process.env.DISCORD)
