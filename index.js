@@ -232,7 +232,6 @@ app.get('/search', async (req, res) => {
           }
         }
         $( '#results' ).append( '<div style="height: 20px;"></div>' )
-        console.log('test: '+$.html()  )
         res.status(200).send($.html())
 
 
@@ -308,17 +307,19 @@ app.get('/creator/:channelID', async (req, res) => {
 
 
           res.status(200).send($.html())
+          return
 
         }).catch((err) => {
           res.send(err)
+          return
         })
 
       }).catch((err) => {
         res.send(err)
+        return
       })
 
     }).catch((err) => {
-      res.status(500).send(err)
       console.log(err)
       res.send(err)
     })
