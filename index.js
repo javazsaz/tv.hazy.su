@@ -261,8 +261,8 @@ app.get('/creator/:channelID', async (req, res) => {
     const $ = cheerio.load(data)
 
     ytch.getChannelInfo(req.params.channelID).then((response) => {
-      $('#banner').attr('style', `background-image: url("${response.authorBanners[0].url}");`)
-      $('#avatar').attr('src', response.authorThumbnails[0].url)
+      $('#banner').attr('style', `background-image: url("${response.authorBanners[response.authorBanners.length-1].url}");`)
+      $('#avatar').attr('src', response.authorThumbnails[response.authorThumbnails.length-1].url)
       $('title').text(`${response.author} - tv.hazy.su`)
       $('#channelName').text(`${response.author}`)
       $('#subCount').text(`${response.subscriberText}`)
