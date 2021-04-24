@@ -303,7 +303,7 @@ app.get('/creator/:channelID', async (req, res) => {
 
           for (let i = 0; i < vids.items.length; i ++) {
             let video = `
-            <a href="watch?v=${vids.items[i].videoId}">
+            <a href="/watch?v=${vids.items[i].videoId}">
             <div class="vid">
             <img class="thumb" src="https://i.ytimg.com/vi/${vids.items[i].videoId}/hqdefault.jpg">
             <div class="metadata">
