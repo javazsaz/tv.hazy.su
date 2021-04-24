@@ -105,6 +105,7 @@ p {
   float: left;
   height: 100%;
   margin-left: 10px;
+  width: calc(100% - 110px);
 }
 #channelName {
   margin-top: 25px;
@@ -113,6 +114,9 @@ p {
   font-size: 25px;
   color: white;
   font-family: 'lexenddeca';
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 #subCount {
   margin-bottom: 25px;
