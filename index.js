@@ -98,6 +98,9 @@ app.get('/watch', (req, res) => {
       $( '#player' ).attr( 'poster',  info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url )
       $( '#title' ).text( info.videoDetails.title )
       let views = parseInt(info.videoDetails.viewCount)
+      let publishDate = new Date(info.videoDetails.publishDate);
+      let options = { year: 'numeric', month: 'long', day: 'numeric' };
+      $( '#vidDate' ).text( `Published ${publishDate.toLocaleDateString('en-US', options)}` )
       $( '#views' ).text( views.toLocaleString('en-US') + ' views' )
       $( '#channelLink' ).attr('href', `/creator/${info.videoDetails.author.id}`)
       $( '#authorAvatar' ).attr( 'src',  info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url )

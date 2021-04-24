@@ -183,6 +183,13 @@ summary::marker {
   color: white;
 }
 
+#vidDate {
+  white-space: pre-wrap;
+  margin: 4px auto;
+  width: 99%;
+  word-break: break-word;
+}
+
 #desc {
   white-space: pre-wrap;
   margin: 0 auto;
