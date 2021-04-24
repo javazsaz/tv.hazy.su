@@ -95,6 +95,17 @@ body {
 #leftBar:hover {
   width: 400px;
 }
+.icon {
+  display: block;
+  margin: 0 auto;
+  width: 70px;
+  background: rgba(255, 255, 255, 0);
+  margin-bottom: 20px;
+  transition: width 0.2s;
+}
+#leftBar:hover .icon {
+  width: 200px;
+}
 .leftBarHover {
   margin-left: 8px;
   margin-right: 8px;
@@ -127,13 +138,6 @@ body {
 }
 #leftBar:hover ~ #content {
   margin-left: 405px;
-}
-.icon {
-  display: block;
-  width: 70px;
-  margin-left: 15px;
-  background: rgba(255, 255, 255, 0);
-  margin-bottom: 20px;
 }
 .contentBar {
   width: 100%;
@@ -246,11 +250,10 @@ body {
 }
 .optionBar p {
   color: white;
-
-  width: 70px;
+  width: 100%;
   margin: 0px;
   font-size: 18px;
-  text-align: center;
+  text-align: left;
   transition: color 0.2s;
   text-decoration: none;
   font-family: 'lexenddeca';
