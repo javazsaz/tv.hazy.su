@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
     const $ = cheerio.load(data)
 
     ytpl('PLESiES1i-Thr37As7SP8ABmJCtuMR4zCf').then(function(playlist) {
+      playlist.items.reverse()
 
       for (let i = 0; i < playlist.items.length; i ++) {
         let video = `
@@ -191,7 +192,6 @@ app.get('/embed/:id', (req, res) => {
       return
     }
     const $ = cheerio.load(data)
-    console.log(req.params.id)
     ytdl.getInfo(req.params.id).then(info => {
       let video = ytdl.chooseFormat(info.formats, { quality: 'highest' })
       let audio = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' })
