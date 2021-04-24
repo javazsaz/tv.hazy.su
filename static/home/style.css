@@ -213,6 +213,7 @@ body {
   max-height: 20px;
   overflow: hidden;
   overflow-wrap: break-word;
+  text-overflow: ellipsis;
 }
 .creator {
   margin: 0px;

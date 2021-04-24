@@ -32,57 +32,32 @@ app.get('/', (req, res) => {
     }
     const $ = cheerio.load(data)
 
-    ytrend.scrape_trending_page('US', true).then((data) =>{
-      for (let i = 0; i < data.length; i ++) {
+    ytpl('PLESiES1i-Thr37As7SP8ABmJCtuMR4zCf').then(function(playlist) {
+
+      for (let i = 0; i < playlist.items.length; i ++) {
         let video = `
-        <a href="watch?v=${data[i].videoId}">
+        <a href="watch?v=${playlist.items[i].id}">
         <div class="vid">
-        <img class="thumb" src="https://i.ytimg.com/vi/${data[i].videoId}/hqdefault.jpg">
+        <img class="thumb" src="https://i.ytimg.com/vi/${playlist.items[i].id}/hqdefault.jpg">
         <div class="metadata">
-        <p class="title">${data[i].title}</p>
-        <p class="creator">${data[i].author}</p>
-        <p class="smallData">${data[i].viewCount.toLocaleString('en-US')} views</p>
+        <p class="title">${playlist.items[i].title}</p>
+        <p class="creator">${playlist.items[i].author.name}</p>
+        <p class="smallData">${playlist.items[i].duration}</p>
         </div>
         </div>
         </a>
         `
 
-        $( '#usBar' ).append( video )
+        $( '#suggestBar' ).append( video )
       }
 
-      ytrend.scrape_trending_page('JP', true).then((data) =>{
-        for (let i = 0; i < data.length; i ++) {
-          let video = `
-          <a href="watch?v=${data[i].videoId}">
-          <div class="vid">
-          <img class="thumb" src="https://i.ytimg.com/vi/${data[i].videoId}/hqdefault.jpg">
-          <div class="metadata">
-          <p class="title">${data[i].title}</p>
-          <p class="creator">${data[i].author}</p>
-          <p class="smallData">${data[i].viewCount.toLocaleString('en-JP')} views</p>
-          </div>
-          </div>
-          </a>
-          `
+      res.send($.html())
 
-          $( '#jpBar' ).append( video )
-        }
-        res.send($.html())
-      }).catch((error)=>{
-        res.json(err)
-        console.log(err)
-      })
 
-    }).catch((error)=>{
+    }).catch(function (err) {
       res.json(err)
       console.log(err)
     })
-
-
-
-
-
-
 
   })
 })
@@ -427,6 +402,15 @@ app.get('/api/playlist/*', async (req, res) => {
   }).catch(function (err) {
     res.json(err)
     console.log(err)
+  })
+})
+
+app.get('/api/trending/:location', async (req, res) => {
+  ytrend.scrape_trending_page(req.params.location, false).then((data) =>{
+    res.json(data)
+  }).catch((error)=>{
+    res.json(error)
+    console.log(error)
   })
 })
 
