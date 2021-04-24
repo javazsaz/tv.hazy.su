@@ -153,9 +153,10 @@ summary::marker {
 #authorObj {
   height: 40px;
   overflow: hidden;
-  margin: 10px auto;
+  margin: 10px 0.5%;
   margin-bottom: 10px;
-  width: 99%;
+  width: fit-content;
+  width: -moz-fit-content;
 }
 
 .avatar {
