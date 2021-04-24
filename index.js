@@ -160,20 +160,49 @@ app.get('/watch', (req, res) => {
       }
 
       let headElements = `
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="player" />
       <meta name="twitter:title" content="${info.videoDetails.title} - watch on tv.hazy.su" />
       <meta name="twitter:description" content="${info.videoDetails.description}" />
       <meta name="twitter:image" content="${info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url}" />
+      <meta name="twitter:player" content="https://tv.hazy.su/embed/${info.videoDetails.videoId}" />
+      <meta name="twitter:player:width" content="200" />
+      <meta name="twitter:player:height" content="100" />
       `
       $( 'head' ).append( headElements )
       $( 'title' ).text(`${info.videoDetails.title} - tv.hazy.su`)
       res.status(200).send($.html())
+    }).catch(function(err) {
+      console.log(err)
+      res.status(500).send(err)
     })
 
 
 
 
 
+  })
+})
+
+app.get('/embed/:id', (req, res) => {
+  fs.readFile('html/embed/index.html', 'utf8', function(err, data){
+    if (err) {
+      console.log(err)
+      res.status(500).send('server error.')
+      return
+    }
+    const $ = cheerio.load(data)
+    console.log(req.params.id)
+    ytdl.getInfo(req.params.id).then(info => {
+      let video = ytdl.chooseFormat(info.formats, { quality: 'highest' })
+      let audio = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' })
+      let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
+      for (let i = 0; i < vidFormats.length; i ++) {
+        let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
+        $( '#player' ).prepend( vidTrack )
+      }
+      $( '#player' ).attr( 'poster',  info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url )
+      res.status(200).send($.html())
+    })
   })
 })
 
