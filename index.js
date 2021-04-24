@@ -161,13 +161,13 @@ app.get('/watch', (req, res) => {
       }
 
       let headElements = `
-      <meta name="twitter:card" content="player" />
-      <meta name="twitter:title" content="${info.videoDetails.title} - watch on tv.hazy.su" />
-      <meta name="twitter:description" content="${info.videoDetails.description}" />
-      <meta name="twitter:image" content="${info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url}" />
-      <meta name="twitter:player" content="https://tv.hazy.su/embed/${info.videoDetails.videoId}" />
-      <meta name="twitter:player:width" content="200" />
-      <meta name="twitter:player:height" content="100" />
+      <meta name="twitter:card" content="player">
+      <meta name="twitter:title" content="${info.videoDetails.title} - watch on tv.hazy.su">
+      <meta name="twitter:description" content="${info.videoDetails.description}">
+      <meta name="twitter:image" content="${info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url}">
+      <meta name="twitter:player" content="https://tv.hazy.su/embed/${info.videoDetails.videoId}">
+      <meta name="twitter:player:width" content="1280">
+      <meta name="twitter:player:height" content="720">
       `
       $( 'head' ).append( headElements )
       $( 'title' ).text(`${info.videoDetails.title} - tv.hazy.su`)
