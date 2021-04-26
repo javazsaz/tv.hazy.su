@@ -28,6 +28,14 @@
   }
 }
 
+a {
+  color: white;
+}
+
+ul {
+  padding-left: 10px;
+}
+
 #credits {
   font-family: 'lexenddeca';
   margin: 0px 10px;
