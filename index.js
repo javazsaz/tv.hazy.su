@@ -194,7 +194,25 @@ app.get('/watch', (req, res) => {
 app.get('/raw/:id', (req, res) => {
   let id = req.params.id
   id = id.replace('.mp4', '')
-  res.redirect('/api/proxy/video/0/'+id)
+  ytdl.getInfo(id).then(info => {
+    let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
+    if (vidFormats[0]) {
+      let url = vidFormats[0].url
+      try {
+        got.stream(url).on("error", function() {
+          res.send()
+        }).on("close", function() {
+          res.send()
+        }).pipe(res)
+      } catch (error) {
+        res.send(error.message)
+      }
+    }else{
+      res.status(404).json('that is not an index for the formats array.')
+    }
+  }).catch(function(err) {
+    res.send(err)
+  })
 })
 
 app.get('/embed/:id', (req, res) => {
