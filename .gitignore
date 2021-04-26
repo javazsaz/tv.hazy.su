@@ -2,3 +2,4 @@
 .foreverignore
 node_modules/
 .env
+stats.json

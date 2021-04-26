@@ -16,7 +16,7 @@ const app = express()
 const port = process.env.PORT || 3009
 const client = new Discord.Client()
 
-let stats = undefined
+let stats
 
 if (fs.existsSync('stats.json')) {
   stats = JSON.parse(fs.readFileSync(__dirname+'/stats.json', 'utf8'))
@@ -35,26 +35,14 @@ app.use(cors())
 app.use(cookieParser())
 
 
-function exitHandler(exitCode, options) {
-  fs.writeFileSync(__dirname+'/stats.json', JSON.stringify(stats, null, 2), 'utf8')
-  if (options.exit) {
-    process.exit()
-  }
+function syncStats() {
+  fs.writeFile(_dirname+'/stats.json', JSON.stringify(stats, null, 2), 'utf8', function(err) {
+    if(err) {
+        return console.log(err);
+    }
+    console.log("Stats synced!");
+  })
 }
-
-//do something when app is closing
-process.on('exit', exitHandler.bind(null,{cleanup:true}));
-
-//catches ctrl+c event
-process.on('SIGINT', exitHandler.bind(null, {exit:true}));
-
-// catches "kill pid" (for example: nodemon restart)
-process.on('SIGUSR1', exitHandler.bind(null, {exit:true}));
-process.on('SIGUSR2', exitHandler.bind(null, {exit:true}));
-
-//catches uncaught exceptions
-process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
-
 
 
 
@@ -124,6 +112,7 @@ app.get('/watch', (req, res) => {
           }
         }else{
           stats.totalViews += 1
+          syncStats()
           for (let i = 0; i < vidFormats.length; i ++) {
             let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}" type='${vidFormats[i].mimeType}'>`
             $( '#player' ).prepend( vidTrack )
@@ -230,6 +219,7 @@ app.get('/watch', (req, res) => {
 app.get('/raw/:id', (req, res) => {
   let id = req.params.id
   stats.totalViews += 1
+  syncStats()
   id = id.replace('.mp4', '')
   ytdl.getInfo(id).then(info => {
     let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
