@@ -37,10 +37,11 @@ app.use(cookieParser())
 
 function syncStats() {
   fs.writeFile(__dirname+'/stats.json', JSON.stringify(stats, null, 2), 'utf8', function(err) {
-    if(err) {
-        return console.log(err);
+    if (err) {
+      console.log(err)
+      return
     }
-    console.log("Stats synced!");
+    console.log("Stats synced!")
   })
 }
 
@@ -99,6 +100,8 @@ app.get('/watch', (req, res) => {
       let video = ytdl.chooseFormat(info.formats, { quality: 'highest' })
       let audio = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' })
       let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
+      stats.totalViews += 1
+      syncStats()
       if (req.cookies.proxyOn=='true') {
         for (let i = 0; i < vidFormats.length; i ++) {
           let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
@@ -111,8 +114,6 @@ app.get('/watch', (req, res) => {
             $( '#player' ).prepend( vidTrack )
           }
         }else{
-          stats.totalViews += 1
-          syncStats()
           for (let i = 0; i < vidFormats.length; i ++) {
             let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}" type='${vidFormats[i].mimeType}'>`
             $( '#player' ).prepend( vidTrack )
@@ -556,7 +557,7 @@ app.get('/api/proxy/video/:format/*', async (req, res) => {
 })
 
 app.get('/api/stats', async (req, res) => {
-  res.json(stats)
+  res.sendFile(__dirname+'/stats.json')
 })
 
 app.get('/api/proxy/*', async (req, res) => {
