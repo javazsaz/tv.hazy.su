@@ -113,15 +113,22 @@ app.get('/watch', (req, res) => {
           $( '#player' ).prepend( vidTrack )
         }
       }else{
-        if (!req.cookies.proxyOn) {
-          for (let i = 0; i < vidFormats.length; i ++) {
-            let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
-            $( '#player' ).prepend( vidTrack )
-          }
-        }else{
+        if (req.cookies.proxyOn=='false') {
           for (let i = 0; i < vidFormats.length; i ++) {
             let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}" type='${vidFormats[i].mimeType}'>`
             $( '#player' ).prepend( vidTrack )
+          }
+        }else{
+          if (config.proxyDefault) {
+            for (let i = 0; i < vidFormats.length; i ++) {
+              let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
+              $( '#player' ).prepend( vidTrack )
+            }
+          }else{
+            for (let i = 0; i < vidFormats.length; i ++) {
+              let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}" type='${vidFormats[i].mimeType}'>`
+              $( '#player' ).prepend( vidTrack )
+            }
           }
         }
       }
@@ -472,12 +479,17 @@ app.get('/settings', async (req, res) => {
       $( '#proxyLabel' ).text( 'Video proxy is currently on.' )
       $( '#proxyInput' ).attr( 'value', 'Disable video proxy' )
     }else{
-      if (!req.cookies.proxyOn) {
-        $( '#proxyLabel' ).text( 'Video proxy is currently on.' )
-        $( '#proxyInput' ).attr( 'value', 'Disable video proxy' )
-      }else{
+      if (req.cookies.proxyOn=='false') {
         $( '#proxyLabel' ).text( 'Video proxy is currently off.' )
         $( '#proxyInput' ).attr( 'value', 'Enable video proxy' )
+      }else{
+        if (config.proxyDefault) {
+          $( '#proxyLabel' ).text( 'Video proxy is currently on.' )
+          $( '#proxyInput' ).attr( 'value', 'Disable video proxy' )
+        }else{
+          $( '#proxyLabel' ).text( 'Video proxy is currently off.' )
+          $( '#proxyInput' ).attr( 'value', 'Enable video proxy' )
+        }
       }
     }
 
@@ -582,10 +594,14 @@ app.post('/settings/toggleProxy', async (req, res) => {
   if (req.cookies.proxyOn=='true') {
     res.cookie('proxyOn', 'false', { maxAge: 31540000 })
   }else{
-    if (!req.cookies.proxyOn) {
-      res.cookie('proxyOn', 'false', { maxAge: 31540000 })
-    }else{
+    if (req.cookies.proxyOn=='false') {
       res.cookie('proxyOn', 'true', { maxAge: 31540000 })
+    }else{
+      if (config.proxyDefault) {
+        res.cookie('proxyOn', 'false', { maxAge: 31540000 })
+      }else{
+        res.cookie('proxyOn', 'true', { maxAge: 31540000 })
+      }
     }
   }
   res.redirect('/settings')
