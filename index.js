@@ -66,16 +66,21 @@ app.get('/', (req, res) => {
 
       for (let i = 0; i < playlist.items.length; i ++) {
         let video = `
-        <a href="watch?v=${playlist.items[i].id}">
-          <div class="vid">
-              <img class="thumb" src="https://i.ytimg.com/vi/${playlist.items[i].id}/hqdefault.jpg">
-            <div class="metadata">
+
+        <div class="vid">
+          <a href="watch?v=${playlist.items[i].id}">
+            <img class="thumb" src="https://i.ytimg.com/vi/${playlist.items[i].id}/hqdefault.jpg">
+          </a>
+          <div class="metadata">
+            <a href="watch?v=${playlist.items[i].id}">
               <p class="title">${playlist.items[i].title}</p>
+            </a>
+            <a href="/creator/${playlist.items[i].author.channelID}">
               <p class="creator">${playlist.items[i].author.name}</p>
-              <p class="smallData">${playlist.items[i].duration}</p>
-            </div>
+            </a>
+            <p class="smallData">${playlist.items[i].duration}</p>
           </div>
-        </a>
+        </div>
         `
 
         $( '#suggestBar' ).append( video )
@@ -170,35 +175,43 @@ app.get('/watch', (req, res) => {
         let video = ''
         if (info.related_videos[i].richThumbnails.length) {
           video = `
-          <a href="/watch?v=${info.related_videos[i].id}">
           <div class="suggestion">
-          <div class="thumb">
-          <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
-          <img class="moveThumb" src=${info.related_videos[i].richThumbnails[info.related_videos[i].richThumbnails.length-1].url}>
+            <a href="/watch?v=${info.related_videos[i].id}">
+              <div class="thumb">
+                <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+                <img class="moveThumb" src=${info.related_videos[i].richThumbnails[info.related_videos[i].richThumbnails.length-1].url}>
+              </div>
+            </a>
+            <div class="suggestMeta">
+              <a href="/watch?v=${info.related_videos[i].id}">
+                <p class="title">${info.related_videos[i].title}</p>
+              </a>
+              <a href="/creator/${info.related_videos[i].author.id}">
+                <p class="author">${info.related_videos[i].author.name}</p>
+              </a>
+              <p class="viewCount">${info.related_videos[i].short_view_count_text} views</p>
+            </div>
           </div>
-          <div class="suggestMeta">
-          <p class="title">${info.related_videos[i].title}</p>
-          <p class="author">${info.related_videos[i].author.name}</p>
-          <p class="viewCount">${info.related_videos[i].short_view_count_text} views</p>
-          </div>
-          </div>
-          </a>
           `
         }else{
           video = `
-          <a href="/watch?v=${info.related_videos[i].id}">
           <div class="suggestion">
-          <div class="thumb">
-          <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
-          <img class="moveThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+            <a href="/watch?v=${info.related_videos[i].id}">
+              <div class="thumb">
+                <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+                <img class="moveThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+              </div>
+            </a>
+            <div class="suggestMeta">
+              <a href="/watch?v=${info.related_videos[i].id}">
+                <p class="title">${info.related_videos[i].title}</p>
+              </a>
+              <a href="/creator/${info.related_videos[i].author.id}">
+                <p class="author">${info.related_videos[i].author.name}</p>
+              </a>
+              <p class="viewCount">${info.related_videos[i].short_view_count_text} views</p>
+            </div>
           </div>
-          <div class="suggestMeta">
-          <p class="title">${info.related_videos[i].title}</p>
-          <p class="author">${info.related_videos[i].author.name}</p>
-          <p class="viewCount">${info.related_videos[i].short_view_count_text} views</p>
-          </div>
-          </div>
-          </a>
           `
         }
 
@@ -299,18 +312,22 @@ app.get('/search', async (req, res) => {
           switch (data.items[i].type) {
             case 'video':
               $( '#results' ).append(`
-                <a href="/watch?v=${data.items[i].id}">
-                  <div class="result">
+                <div class="result">
+                  <a href="/watch?v=${data.items[i].id}">
                     <div class="thumb">
                       <img class="staticThumb" src=${data.items[i].bestThumbnail.url}>
                     </div>
-                    <div class="resultMeta">
+                  </a>
+                  <div class="suggestMeta">
+                    <a href="/watch?v=${data.items[i].id}">
                       <p class="title">${data.items[i].title}</p>
+                    </a>
+                    <a href="/creator/${data.items[i].author.channelID}">
                       <p class="author">${data.items[i].author.name}</p>
-                      <p class="viewCount">${data.items[i].views.toLocaleString('en-US')} views</p>
-                    </div>
+                    </a>
+                    <p class="viewCount">${data.items[i].views.toLocaleString('en-US')} views</p>
                   </div>
-                </a>
+                </div>
                 `)
               break;
             case 'channel':

@@ -47,6 +47,10 @@ body {
   font-family: 'lexenddeca', sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
 #mobileHeader {
   display: none;
   background-color: #282828;
@@ -218,6 +222,7 @@ body {
   overflow: hidden;
   overflow-wrap: break-word;
   text-overflow: ellipsis;
+  text-decoration: none;
 }
 .creator {
   margin: 0px;

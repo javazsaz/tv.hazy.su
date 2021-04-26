@@ -27,6 +27,9 @@ p {
 form {
   margin: 0px;
 }
+a {
+  text-decoration: none;
+}
 #searchBar {
   width: calc(100% - 10px);
   font-size: 18px;
