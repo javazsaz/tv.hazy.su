@@ -191,6 +191,12 @@ app.get('/watch', (req, res) => {
   })
 })
 
+app.get('/raw/:id', (req, res) => {
+  let id = req.params.id
+  id = id.replace('.mp4', '')
+  res.redirect('/api/proxy/video/0/'+id)
+})
+
 app.get('/embed/:id', (req, res) => {
   fs.readFile('html/embed/index.html', 'utf8', function(err, data){
     if (err) {
