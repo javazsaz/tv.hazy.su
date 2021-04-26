@@ -67,14 +67,14 @@ app.get('/', (req, res) => {
       for (let i = 0; i < playlist.items.length; i ++) {
         let video = `
         <a href="watch?v=${playlist.items[i].id}">
-        <div class="vid">
-        <img class="thumb" src="https://i.ytimg.com/vi/${playlist.items[i].id}/hqdefault.jpg">
-        <div class="metadata">
-        <p class="title">${playlist.items[i].title}</p>
-        <p class="creator">${playlist.items[i].author.name}</p>
-        <p class="smallData">${playlist.items[i].duration}</p>
-        </div>
-        </div>
+          <div class="vid">
+              <img class="thumb" src="https://i.ytimg.com/vi/${playlist.items[i].id}/hqdefault.jpg">
+            <div class="metadata">
+              <p class="title">${playlist.items[i].title}</p>
+              <p class="creator">${playlist.items[i].author.name}</p>
+              <p class="smallData">${playlist.items[i].duration}</p>
+            </div>
+          </div>
         </a>
         `
 
