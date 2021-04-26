@@ -231,23 +231,41 @@ app.get('/search', async (req, res) => {
           l = data.items.length
         }
         for (let i = 0; i < l; i ++) {
-          if (data.items[i].type=='video') {
-            let response = `
-            <a href="/watch?v=${data.items[i].id}">
-              <div class="result">
-                <div class="thumb">
-                  <img class="staticThumb" src=${data.items[i].bestThumbnail.url}>
-                </div>
-                <div class="resultMeta">
-                  <p class="title">${data.items[i].title}</p>
-                  <p class="author">${data.items[i].author.name}</p>
-                  <p class="viewCount">${data.items[i].views.toLocaleString('en-US')} views</p>
-                </div>
-              </div>
-            </a>
-            `
-            $( '#results' ).append( response )
+
+          switch (data.items[i].type) {
+            case 'video':
+              $( '#results' ).append(`
+                <a href="/watch?v=${data.items[i].id}">
+                  <div class="result">
+                    <div class="thumb">
+                      <img class="staticThumb" src=${data.items[i].bestThumbnail.url}>
+                    </div>
+                    <div class="resultMeta">
+                      <p class="title">${data.items[i].title}</p>
+                      <p class="author">${data.items[i].author.name}</p>
+                      <p class="viewCount">${data.items[i].views.toLocaleString('en-US')} views</p>
+                    </div>
+                  </div>
+                </a>
+                `)
+              break;
+            case 'channel':
+              $( '#results' ).append(`
+                <a href="/creator/${data.items[i].channelID}">
+                  <div class="result">
+                    <div class="avatar">
+                      <img class="staticThumb" src=${data.items[i].bestAvatar.url}>
+                    </div>
+                    <div class="resultMeta">
+                      <p class="title">${data.items[i].name}</p>
+                      <p class="viewCount">${data.items[i].subscribers}</p>
+                    </div>
+                  </div>
+                </a>
+                `)
+              break;
           }
+
         }
         $( '#results' ).append( '<div style="height: 20px;"></div>' )
         res.status(200).send($.html())
@@ -518,11 +536,11 @@ app.listen(port, () => {
 
 function escapeHtml(unsafe) {
   return unsafe
-  .replace(/&/g, "&amp;")
-  .replace(/</g, "&lt;")
-  .replace(/>/g, "&gt;")
-  .replace(/"/g, "&quot;")
-  .replace(/'/g, "&#039;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
 }
 
 function replaceContent(content) {

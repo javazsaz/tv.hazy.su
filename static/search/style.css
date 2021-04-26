@@ -86,6 +86,14 @@ form {
   margin-right: 5px;
 }
 
+.avatar {
+  display: block;
+  float: left;
+  width: 78.75px;
+  height: 78.75px;
+  margin-right: 5px;
+}
+
 .resultMeta {
   display: block;
   float: left;
@@ -102,6 +110,12 @@ form {
 .thumb img {
   width: 140px;
   height: 100%;
+}
+
+.avatar img {
+  width: 78.75px;
+  height: 100%;
+  border-radius: 6px;
 }
 
 .title {
