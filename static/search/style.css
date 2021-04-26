@@ -118,7 +118,7 @@ a {
 .avatar img {
   width: 78.75px;
   height: 100%;
-  border-radius: 6px;
+  border-radius: 50%;
 }
 
 .title {
