@@ -12,7 +12,6 @@
     height: calc(calc(100vw / 16) * 9) !important;
   }
   #page {
-    /* height: calc(calc(100vh - 75%) - 50px); */
     overflow: auto;
     height: calc(calc(100vh - calc(calc(100vw / 16) * 9)) - 50px) !important;
   }
@@ -43,6 +42,7 @@
   padding: 0px 10px;
   font-family: 'lexenddeca';
   overflow: hidden;
+  z-index: 20;
 }
 
 #header #siteTitle {
