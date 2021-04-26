@@ -13,11 +13,16 @@ const ytsr = require('ytsr')
 const ytch = require('yt-channel-info')
 const ytrend = require("yt-trending-scraper")
 const app = express()
-const port = process.env.PORT || 3009
 const client = new Discord.Client()
+if (fs.existsSync('config.json')) {
+  config = JSON.parse(fs.readFileSync(__dirname+'/config.json', 'utf8'))
+} else {
+  console.log('No config.json found. Please set one up according to the README.')
+  process.exit()
+}
+const port = process.env.PORT || config.port
 
 let stats
-
 if (fs.existsSync('stats.json')) {
   stats = JSON.parse(fs.readFileSync(__dirname+'/stats.json', 'utf8'))
 } else {
@@ -423,15 +428,15 @@ app.get('/creator/:channelID', async (req, res) => {
       $('#subCount').text(`Oops.`)
       if ((err+'').includes("Cannot read property 'title' of undefined")) {
         $('#error').text(`Something went wrong while gathering information about this creator.`)
-        sendMessage((err.stack+'').slice(0, 1700), 'ERROR')
+        sendMessage(err.stack, 'ERROR')
       }
       if (err.isAxiosError) {
         if (err.response.status == 404) {
           $('#error').text(`This creator doesn't exist.`)
-          sendMessage((err.stack+'').slice(0, 1700), 'ERROR')
+          sendMessage(err.stack, 'ERROR')
         }else{
           $('#error').text(`Something went wrong.`)
-          sendMessage((err.stack+'').slice(0, 1700), 'NEW_ERROR')
+          sendMessage(err.stack, 'NEW_ERROR')
         }
       }
       res.status(500).send($.html())
@@ -610,7 +615,12 @@ function replaceContent(content) {
 }
 
 function sendMessage(text, channelIDenv) {
-  client.channels.cache.get(process.env[channelIDenv]).send(text)
+  console.log(text)
+  if (config.logToDiscord) {
+    client.channels.cache.get(process.env[channelIDenv]).send((text+'').slice(0, 1700))
+  }
 }
 
-client.login(process.env.DISCORD)
+if (config.logToDiscord) {
+  client.login(process.env.DISCORD)
+}
