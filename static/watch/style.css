@@ -70,7 +70,6 @@ html {
 body {
   margin: 0px;
   background-color: #282828;
-  margin-bottom: 20px;
   margin-top: 50px;
   height: calc(100% + 20px);
   overflow-y: auto;
@@ -108,6 +107,7 @@ p {
 #content {
   margin: 20px auto;
   width: 75%;
+  overflow: hidden;
 }
 
 details[open] summary #open {
@@ -212,6 +212,7 @@ summary::marker {
   display: block;
   float: left;
   width: 35%;
+  margin-bottom: 20px;
 }
 
 #similar a {
