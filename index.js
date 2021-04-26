@@ -105,7 +105,11 @@ app.get('/watch', (req, res) => {
       $( '#channelLink' ).attr('href', `/creator/${info.videoDetails.author.id}`)
       $( '#authorAvatar' ).attr( 'src',  info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url )
       $( '#authorName' ).text( info.videoDetails.author.name )
-      $( '#desc' ).html( replaceContent(escapeHtml(info.videoDetails.description)).replace(/\n/g, "<br />") )
+      if (info.videoDetails.description!=null) {
+        $( '#desc' ).html( replaceContent(escapeHtml(info.videoDetails.description)).replace(/\n/g, "<br />") )
+      }else{
+        $( '#desc' ).html( '...No description...' )
+      }
       $( '#ytLink' ).attr( 'href', `https://youtu.be/${info.videoDetails.videoId}` )
       if (info.player_response.captions != undefined) {
         for (let i = 0; i < info
@@ -230,16 +234,16 @@ app.get('/search', async (req, res) => {
           if (data.items[i].type=='video') {
             let response = `
             <a href="/watch?v=${data.items[i].id}">
-            <div class="result">
-            <div class="thumb">
-            <img class="staticThumb" src=${data.items[i].bestThumbnail.url}>
-            </div>
-            <div class="resultMeta">
-            <p class="title">${data.items[i].title}</p>
-            <p class="author">${data.items[i].author.name}</p>
-            <p class="viewCount">${data.items[i].views.toLocaleString('en-US')} views</p>
-            </div>
-            </div>
+              <div class="result">
+                <div class="thumb">
+                  <img class="staticThumb" src=${data.items[i].bestThumbnail.url}>
+                </div>
+                <div class="resultMeta">
+                  <p class="title">${data.items[i].title}</p>
+                  <p class="author">${data.items[i].author.name}</p>
+                  <p class="viewCount">${data.items[i].views.toLocaleString('en-US')} views</p>
+                </div>
+              </div>
             </a>
             `
             $( '#results' ).append( response )
@@ -274,7 +278,11 @@ app.get('/creator/:channelID', async (req, res) => {
     const $ = cheerio.load(data)
 
     ytch.getChannelInfo(req.params.channelID).then((response) => {
-      $('#banner').attr('style', `background-image: url("${response.authorBanners[response.authorBanners.length-1].url}");`)
+      if (response.authorBanners != null) {
+        $('#banner').attr('style', `background-image: url("${response.authorBanners[response.authorBanners.length-1].url}");`)
+      }else{
+        $('#banner').attr('style', `display: none;`)
+      }
       $('#avatar').attr('src', response.authorThumbnails[response.authorThumbnails.length-1].url)
       $('title').text(`${response.author} - tv.hazy.su`)
       $('#channelName').text(`${response.author}`)
