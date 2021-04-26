@@ -36,7 +36,7 @@ app.use(cookieParser())
 
 
 function syncStats() {
-  fs.writeFile(_dirname+'/stats.json', JSON.stringify(stats, null, 2), 'utf8', function(err) {
+  fs.writeFile(__dirname+'/stats.json', JSON.stringify(stats, null, 2), 'utf8', function(err) {
     if(err) {
         return console.log(err);
     }
