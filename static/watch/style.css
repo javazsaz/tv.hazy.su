@@ -40,7 +40,7 @@
   height: 50px;
   width: calc(100% - 20px);
   padding: 0px 10px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   overflow: hidden;
   z-index: 20;
 }
@@ -50,7 +50,7 @@
   margin: 10px 0px;
   line-height: 30px;
   font-size: 30px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   color: white;
   text-decoration: none;
 }
@@ -60,7 +60,7 @@
   margin: 10px 0px;
   line-height: 30px;
   font-size: 20px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   color: white;
   text-decoration: none;
 }
@@ -156,7 +156,7 @@ summary::marker {
 #metadata {
   display: block;
   float: left;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   width: calc(65% - 20px);
   margin-right: 20px;
   color: white;
@@ -235,12 +235,12 @@ summary::marker {
 #similar a {
   color: white;
   text-decoration: none;
-  font-family: 'lexenddeca'
+  font-family: 'lexenddeca', sans-serif
 }
 
 #similarTitle {
   margin-bottom: 4px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   color: white;
   font-weight: bold;
   user-select: none;

@@ -38,7 +38,7 @@ body {
   background-color: #282828;
   overflow: hidden !important;
   margin: 0px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
 }
 
 #header {
@@ -49,7 +49,7 @@ body {
   height: 50px;
   width: calc(100% - 20px);
   padding: 0px 10px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   overflow: hidden;
 }
 
@@ -58,7 +58,7 @@ body {
   margin: 10px 0px;
   line-height: 30px;
   font-size: 30px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   color: white;
   text-decoration: none;
 }
@@ -68,7 +68,7 @@ body {
   margin: 10px 0px;
   line-height: 30px;
   font-size: 20px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   color: white;
   text-decoration: none;
 }
@@ -219,7 +219,7 @@ body {
   text-align: center;
   transition: color 0.2s;
   text-decoration: none;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
 }
 .optionBar:hover {
   background-color: rgba(255, 255, 255, 1);

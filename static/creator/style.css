@@ -59,7 +59,7 @@ p {
   height: 50px;
   width: calc(100% - 20px);
   padding: 0px 10px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   overflow: hidden;
 }
 
@@ -68,7 +68,7 @@ p {
   margin: 10px 0px;
   line-height: 30px;
   font-size: 30px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   color: white;
   text-decoration: none;
 }
@@ -78,7 +78,7 @@ p {
   margin: 10px 0px;
   line-height: 30px;
   font-size: 20px;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   color: white;
   text-decoration: none;
 }
@@ -113,7 +113,7 @@ p {
   height: 25px;
   font-size: 25px;
   color: white;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -124,7 +124,7 @@ p {
   height: 25px;
   font-size: 25px;
   color: white;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
 }
 
 #content {
@@ -154,7 +154,7 @@ p {
   margin-bottom: 20px;
   color: white;
   scroll-behavior: smooth;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
 }
 .barTitle {
   margin: 0px;
@@ -247,7 +247,7 @@ p {
 }
 #error {
   color: white;
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   width: calc(100% - 24%);
   margin: 0px 12%;
 }

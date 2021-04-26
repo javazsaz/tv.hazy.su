@@ -9,7 +9,7 @@
 
 @media (max-width: 900px) {
   #results {
-    font-family: 'lexenddeca';
+    font-family: 'lexenddeca', sans-serif;
     padding: 0px !important;
   }
 }
@@ -38,7 +38,7 @@ form {
   outline: none;
 }
 #results {
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   height: calc(100vh - 28px);
   overflow-y: auto;
   padding-left: 1%;
@@ -47,7 +47,7 @@ form {
   scrollbar-width: thin;
 }
 #info {
-  font-family: 'lexenddeca';
+  font-family: 'lexenddeca', sans-serif;
   height: calc(100vh - 28px);
   overflow-y: auto;
   padding-left: 1%;
