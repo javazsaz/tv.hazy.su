@@ -16,12 +16,47 @@ const app = express()
 const port = process.env.PORT || 3009
 const client = new Discord.Client()
 
+let stats = undefined
+
+if (fs.existsSync('stats.json')) {
+  stats = JSON.parse(fs.readFileSync(__dirname+'/stats.json', 'utf8'))
+} else {
+  let stats = {
+    totalViews: 0
+  }
+  fs.writeFileSync(__dirname+'/stats.json', JSON.stringify(stats, null, 2), 'utf8')
+}
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
 app.use(cors())
 app.use(cookieParser())
+
+
+function exitHandler(exitCode, options) {
+  fs.writeFileSync(__dirname+'/stats.json', JSON.stringify(stats, null, 2), 'utf8')
+  if (options.exit) {
+    process.exit()
+  }
+}
+
+//do something when app is closing
+process.on('exit', exitHandler.bind(null,{cleanup:true}));
+
+//catches ctrl+c event
+process.on('SIGINT', exitHandler.bind(null, {exit:true}));
+
+// catches "kill pid" (for example: nodemon restart)
+process.on('SIGUSR1', exitHandler.bind(null, {exit:true}));
+process.on('SIGUSR2', exitHandler.bind(null, {exit:true}));
+
+//catches uncaught exceptions
+process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
+
+
+
 
 app.get('/', (req, res) => {
   fs.readFile('html/home/index.html', 'utf8', function(err, data){
@@ -88,6 +123,7 @@ app.get('/watch', (req, res) => {
             $( '#player' ).prepend( vidTrack )
           }
         }else{
+          stats.totalViews += 1
           for (let i = 0; i < vidFormats.length; i ++) {
             let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}" type='${vidFormats[i].mimeType}'>`
             $( '#player' ).prepend( vidTrack )
@@ -193,6 +229,7 @@ app.get('/watch', (req, res) => {
 
 app.get('/raw/:id', (req, res) => {
   let id = req.params.id
+  stats.totalViews += 1
   id = id.replace('.mp4', '')
   ytdl.getInfo(id).then(info => {
     let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
@@ -526,6 +563,10 @@ app.get('/api/proxy/video/:format/*', async (req, res) => {
   }).catch(function(err) {
     res.send(err)
   })
+})
+
+app.get('/api/stats', async (req, res) => {
+  res.json(stats)
 })
 
 app.get('/api/proxy/*', async (req, res) => {
