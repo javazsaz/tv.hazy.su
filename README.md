@@ -20,6 +20,5 @@ Go to the URL ``127.0.0.1:3009`` in a browser and you will see it running.
 ###### in no particular order
 
 - add config.json to allow people to disable Discord bot logs
-- add setting to site to disable logging errors in general (per user)
 - improve video proxying
 - list youtube comments (?)
