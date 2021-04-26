@@ -1,0 +1,5 @@
+{
+  "logToDiscord": false,
+  "port": 3009,
+  "proxyDefault": true
+}
