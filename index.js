@@ -97,6 +97,23 @@ app.get('/', (req, res) => {
   })
 })
 
+function timestamp(text, id) {
+  let newText = text.replace(/([0-9]{1,2}:){0,1}[0-9]{1,2}:[0-9]{2}/gm, replaceTimestamp).replace(/<<TIMESTAMP>>/gm, id)
+  return newText
+}
+
+function replaceTimestamp(match) {
+  let times = match.split(":")
+  times.reverse()
+  let seconds = 0
+  seconds += parseInt(times[0])
+  seconds += parseInt(times[1])*60
+  if (times[2]) {
+    seconds += (parseInt(times[2])*60)*60
+  }
+  return `<a href="/watch?v=<<TIMESTAMP>>&t=${seconds}">${match}</a>`
+}
+
 app.get('/watch', (req, res) => {
   fs.readFile('html/watch/index.html', 'utf8', function(err, data){
     if (err) {
@@ -106,6 +123,12 @@ app.get('/watch', (req, res) => {
     }
     const $ = cheerio.load(data)
 
+    let timecode = ''
+    if (req.query.t) {
+      timecode += '#t='+req.query.t
+      $( '#player' ).attr( 'autoplay', 'true' )
+    }
+
     ytdl.getInfo(req.query.v).then(info => {
       let video = ytdl.chooseFormat(info.formats, { quality: 'highest' })
       let audio = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' })
@@ -114,24 +137,24 @@ app.get('/watch', (req, res) => {
       syncStats()
       if (req.cookies.proxyOn=='true') {
         for (let i = 0; i < vidFormats.length; i ++) {
-          let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
+          let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}${timecode}" type='${vidFormats[i].mimeType}'>`
           $( '#player' ).prepend( vidTrack )
         }
       }else{
         if (req.cookies.proxyOn=='false') {
           for (let i = 0; i < vidFormats.length; i ++) {
-            let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}" type='${vidFormats[i].mimeType}'>`
+            let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}${timecode}" type='${vidFormats[i].mimeType}'>`
             $( '#player' ).prepend( vidTrack )
           }
         }else{
           if (config.proxyDefault) {
             for (let i = 0; i < vidFormats.length; i ++) {
-              let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}" type='${vidFormats[i].mimeType}'>`
+              let vidTrack = `<source id="vidSrc" src="/api/proxy/video/${i}/${info.videoDetails.videoId}${timecode}" type='${vidFormats[i].mimeType}'>`
               $( '#player' ).prepend( vidTrack )
             }
           }else{
             for (let i = 0; i < vidFormats.length; i ++) {
-              let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}" type='${vidFormats[i].mimeType}'>`
+              let vidTrack = `<source id="vidSrc" src="${vidFormats[i].url}${timecode}" type='${vidFormats[i].mimeType}'>`
               $( '#player' ).prepend( vidTrack )
             }
           }
@@ -149,7 +172,9 @@ app.get('/watch', (req, res) => {
       $( '#authorAvatar' ).attr( 'src',  info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url )
       $( '#authorName' ).text( info.videoDetails.author.name )
       if (info.videoDetails.description!=null) {
-        $( '#desc' ).html( replaceContent(escapeHtml(info.videoDetails.description)).replace(/\n/g, "<br />") )
+        let description = replaceContent(escapeHtml(info.videoDetails.description)).replace(/\n/g, "<br />")
+        let timestampParsed = timestamp(description, info.videoDetails.videoId)
+        $( '#desc' ).html( timestampParsed )
       }else{
         $( '#desc' ).html( '...No description...' )
       }
