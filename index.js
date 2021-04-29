@@ -26,7 +26,7 @@ let stats
 if (fs.existsSync('stats.json')) {
   stats = JSON.parse(fs.readFileSync(__dirname+'/stats.json', 'utf8'))
 } else {
-  let stats = {
+  stats = {
     totalViews: 0
   }
   fs.writeFileSync(__dirname+'/stats.json', JSON.stringify(stats, null, 2), 'utf8')
