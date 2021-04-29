@@ -98,7 +98,8 @@ app.get('/', (req, res) => {
 })
 
 function timestamp(text, id) {
-  let newText = text.replace(/([0-9]{1,2}:){0,1}[0-9]{1,2}:[0-9]{2}/gm, replaceTimestamp).replace(/<<TIMESTAMP>>/gm, id)
+  let newText = text.replace(/([0-9]{1,2}:){0,1}[0-9]{1,2}:[0-9]{2}/gm, replaceTimestamp)
+  newText = newText.replace(/<<TIMESTAMP>>/gm, id)
   return newText
 }
 
@@ -127,6 +128,10 @@ app.get('/watch', (req, res) => {
     if (req.query.t) {
       timecode += '#t='+req.query.t
       $( '#player' ).attr( 'autoplay', 'true' )
+    }
+    if (!req.query.v) {
+      res.redirect('/')
+      return
     }
 
     ytdl.getInfo(req.query.v).then(info => {
