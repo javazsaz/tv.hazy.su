@@ -25,7 +25,7 @@ function routes() {
   app.get('/api/playlist/*', require('./api').playlist)
   app.get('/api/trending/:location', require('./api').trending)
   app.get('/api/search', require('./api').search)
-  app.get('/api/proxy/video/:format/*', require('./api').video)
+  app.get('/api/proxy/video/:format/*', require('./api').proxyVideo)
   app.get('/api/stats', require('./api').stats)
   app.get('/api/proxy/*', require('./api').proxy)
   app.post('/settings/toggleProxy', require('./api').toggleProxy)

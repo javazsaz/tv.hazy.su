@@ -1,6 +1,6 @@
 module.exports = {
   proxy: proxyPage,
-  video: proxyVideo,
+  proxyVideo: proxyVideo,
   search: search,
   video: video,
   channel: channel,
@@ -31,6 +31,7 @@ async function proxyPage(req, res, next) {
   }
 }
 async function proxyVideo(req, res, next) {
+  console.log('test: '+req.params.format)
   let id = req.url.replace('/api/proxy/video/'+req.params.format+'/', '')
   ytdl.getInfo(id).then(info => {
     let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
