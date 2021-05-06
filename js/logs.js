@@ -1,5 +1,6 @@
 module.exports = {
-  start: start
+  start: start,
+  sendMessage: sendMessage
 }
 
 let started = false

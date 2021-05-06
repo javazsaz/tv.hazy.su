@@ -3,6 +3,7 @@ module.exports = genPage
 const fs = require('fs')
 const cheerio = require('cheerio')
 const ytch = require('yt-channel-info')
+const {sendMessage} = require('../logs')
 
 async function genPage(req, res, next) {
   fs.readFile('html/channel/index.html', 'utf8', function(err, data){
