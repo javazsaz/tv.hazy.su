@@ -4,6 +4,7 @@ const fs = require('fs')
 const cheerio = require('cheerio')
 const ytch = require('yt-channel-info')
 const {sendMessage} = require('../logs')
+const {escapeHtml} = require('../cleaning')
 
 async function genPage(req, res, next) {
   fs.readFile('html/channel/index.html', 'utf8', function(err, data){
@@ -63,6 +64,14 @@ async function genPage(req, res, next) {
             $( '#popularBar' ).append( video )
           }
 
+
+          let headElements = `
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:title" content="${escapeHtml(response.author)} - tv.hazy.su" />
+          <meta name="twitter:description" content="${escapeHtml(response.description)}" />
+          <meta name="twitter:image" content="${response.authorThumbnails[response.authorThumbnails.length-1].url}" />
+          `
+          $( 'head' ).append( headElements )
 
 
           res.status(200).send($.html())
