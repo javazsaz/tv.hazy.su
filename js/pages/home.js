@@ -15,7 +15,7 @@ function genPage(req, res, next) {
     }
     const $ = cheerio.load(data)
 
-    ytpl('PLESiES1i-Thr37As7SP8ABmJCtuMR4zCf').then(function(playlist) {
+    ytpl(config.homePlaylist).then(function(playlist) {
       playlist.items.reverse()
 
       for (let i = 0; i < playlist.items.length; i ++) {

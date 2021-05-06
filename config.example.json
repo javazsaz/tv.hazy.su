@@ -1,5 +1,6 @@
 {
   "logToDiscord": false,
   "port": 3009,
-  "proxyDefault": true
+  "proxyDefault": true,
+  "homePlaylist": "PLESiES1i-Thr37As7SP8ABmJCtuMR4zCf"
 }
