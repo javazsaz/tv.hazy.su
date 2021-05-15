@@ -305,9 +305,14 @@ summary::marker {
 
 .author {
   color: #aaaaaa;
+  width: fit-content;
+  width: -moz-fit-content;
+  float: left;
 }
 
 .viewCount {
   color: #aaaaaa;
+  width: calc(100% - 145px);
+  float: left;
   font-family: 'lexenddeca', sans-serif;
 }
