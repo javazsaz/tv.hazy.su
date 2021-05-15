@@ -44,6 +44,7 @@ async function proxyVideo(req, res, next) {
         }).pipe(res)
       } catch (error) {
         res.send(error.message)
+        console.log(error)
       }
     }else{
       res.status(404).json('that is not an index for the formats array.')
