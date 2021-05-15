@@ -10,7 +10,6 @@
 @media (max-width: 900px) {
   #results {
     font-family: 'lexenddeca', sans-serif;
-    padding: 0px !important;
   }
 }
 
@@ -31,12 +30,12 @@ a {
   text-decoration: none;
 }
 #searchBar {
-  width: calc(100% - 10px);
+  width: calc(100% - 2px);
   font-size: 18px;
-  height: 18px;
+  height: 20px;
   border: none;
-  margin: 5px;
-  border-radius: 4px;
+  margin: 1px;
+  border-radius: 2px;
   padding: 0px 4px;
   outline: none;
 }
@@ -44,8 +43,7 @@ a {
   font-family: 'lexenddeca', sans-serif;
   height: calc(100vh - 28px);
   overflow-y: auto;
-  padding-left: 1%;
-  padding-right: 1%;
+  padding: 0px;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   scrollbar-width: thin;
 }
