@@ -4,6 +4,7 @@ const fs = require('fs')
 const config = require('../config')()
 const cheerio = require('cheerio')
 const ytdl = require('ytdl-core')
+const ytcm = require("yt-comment-scraper")
 const stats = require('../stats')
 const {escapeHtml, replaceContent, timestamp} = require('../cleaning')
 
@@ -27,7 +28,7 @@ function genPage(req, res, next) {
       return
     }
 
-    ytdl.getInfo(req.query.v).then(info => {
+    ytdl.getInfo(req.query.v).then(async info => {
       let video = ytdl.chooseFormat(info.formats, { quality: 'highest' })
       let audio = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' })
       let vidFormats = ytdl.filterFormats(info.formats, 'videoandaudio')
@@ -140,6 +141,22 @@ function genPage(req, res, next) {
         $( '#similar' ).append( video )
       }
 
+      let payload = {
+        videoId: req.query.v, // Required
+        sortByNewest: false,
+        continuation: null,
+        setCookie: false
+      }
+      try {
+        let commentDat = await ytcm.getComments(payload)
+        console.log(commentDat)
+      } catch {
+        console.log(`comments failed to log. as comments are unimplemented, this is fine, but im checking to be sure its not something to do with my machine. :)`)
+      }
+
+
+
+
       let headElements = `
       <meta name="twitter:card" content="player">
       <meta name="twitter:title" content="${info.videoDetails.title} - watch on tv.hazy.su">
@@ -154,7 +171,10 @@ function genPage(req, res, next) {
       res.status(200).send($.html())
     }).catch(function(err) {
       console.log(err)
-      res.status(500).send(err)
+      res.status(500).json({
+        'message': "something went wrong. try refreshing the page. if this doesn't work, please submit an issue.",
+        'github issue page': "https://github.com/hazycora/tv.hazy.su/issues",
+        'error stack': err.stack})
     })
 
 
