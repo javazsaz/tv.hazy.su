@@ -14,6 +14,7 @@
   #page {
     overflow: auto;
     height: calc(calc(100vh - calc(calc(100vw / 16) * 9)) - 50px) !important;
+    min-height: calc(calc(100vh - 60vh) - 50px) !important;
   }
   body {
     /* margin-top: calc(calc(calc(100vw / 16) * 9) + 55px) !important; */
