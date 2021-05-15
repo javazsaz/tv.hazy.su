@@ -22,7 +22,7 @@ function genPage(req, res, next) {
       let video = `
       <div class="vid">
         <a href="watch?v=${playlist.items[i].id}">
-          <img class="thumb" src="https://i.ytimg.com/vi/${playlist.items[i].id}/hqdefault.jpg">
+          <img class="thumb" src="/api/proxy/https://i.ytimg.com/vi/${playlist.items[i].id}/hqdefault.jpg">
         </a>
         <div class="metadata">
           <a href="watch?v=${playlist.items[i].id}">
@@ -42,7 +42,7 @@ function genPage(req, res, next) {
       let video = `
       <div class="vid">
         <a href="watch?v=${trending[i].videoId}">
-          <img class="thumb" src="https://i.ytimg.com/vi/${trending[i].videoId}/hqdefault.jpg">
+          <img class="thumb" src="/api/proxy/https://i.ytimg.com/vi/${trending[i].videoId}/hqdefault.jpg">
         </a>
         <div class="metadata">
           <a href="watch?v=${trending[i].videoId}">

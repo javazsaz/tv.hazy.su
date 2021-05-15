@@ -59,7 +59,7 @@ function genPage(req, res, next) {
         }
       }
 
-      $( '#player' ).attr( 'poster',  info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url )
+      $( '#player' ).attr( 'poster',  `/api/proxy/${info.videoDetails.thumbnails[info.videoDetails.thumbnails.length-1].url}` )
       $( '#title' ).text( info.videoDetails.title )
       let views = parseInt(info.videoDetails.viewCount)
       let publishDate = new Date(info.videoDetails.publishDate);
@@ -67,7 +67,7 @@ function genPage(req, res, next) {
       $( '#vidDate' ).text( `Published ${publishDate.toLocaleDateString('en-US', options)}` )
       $( '#views' ).text( views.toLocaleString('en-US') + ' views' )
       $( '#channelLink' ).attr('href', `/creator/${info.videoDetails.author.id}`)
-      $( '#authorAvatar' ).attr( 'src',  info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url )
+      $( '#authorAvatar' ).attr( 'src',  `/api/proxy/${info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url}` )
       $( '#authorName' ).text( info.videoDetails.author.name )
       if (info.videoDetails.description!=null) {
         let description = replaceContent(escapeHtml(info.videoDetails.description)).replace(/\n/g, "<br />")
@@ -101,8 +101,8 @@ function genPage(req, res, next) {
           <div class="suggestion">
             <a href="/watch?v=${info.related_videos[i].id}">
               <div class="thumb">
-                <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
-                <img class="moveThumb" src=${info.related_videos[i].richThumbnails[info.related_videos[i].richThumbnails.length-1].url}>
+                <img class="staticThumb" src=/api/proxy/${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+                <img class="moveThumb" src=/api/proxy/${info.related_videos[i].richThumbnails[info.related_videos[i].richThumbnails.length-1].url}>
               </div>
             </a>
             <div class="suggestMeta">
@@ -121,8 +121,8 @@ function genPage(req, res, next) {
           <div class="suggestion">
             <a href="/watch?v=${info.related_videos[i].id}">
               <div class="thumb">
-                <img class="staticThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
-                <img class="moveThumb" src=${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+                <img class="staticThumb" src=/api/proxy/${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
+                <img class="moveThumb" src=/api/proxy/${info.related_videos[i].thumbnails[info.related_videos[i].thumbnails.length-1].url}>
               </div>
             </a>
             <div class="suggestMeta">
