@@ -147,12 +147,12 @@ function genPage(req, res, next) {
         continuation: null,
         setCookie: false
       }
-      try {
-        let commentDat = await ytcm.getComments(payload)
-        console.log(commentDat)
-      } catch {
-        console.log(`comments failed to log. as comments are unimplemented, this is fine, but im checking to be sure its not something to do with my machine. :)`)
-      }
+      // try {
+      //   let commentDat = await ytcm.getComments(payload)
+      //   console.log(commentDat)
+      // } catch {
+      //   console.log(`comments failed to log. as comments are unimplemented, this is fine, but im checking to be sure its not something to do with my machine. :)`)
+      // }
 
 
 
