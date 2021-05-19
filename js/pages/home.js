@@ -37,25 +37,39 @@ function genPage(req, res, next) {
       `
       $( '#suggestBar' ).append( video )
     }
-    let trending = await ytrend.scrape_trending_page('US', false)
-    for (let i = 0; i < trending.length; i ++) {
-      let video = `
-      <div class="vid">
-        <a href="watch?v=${trending[i].videoId}">
-          <img class="thumb" src="/api/proxy/https://i.ytimg.com/vi/${trending[i].videoId}/hqdefault.jpg">
-        </a>
-        <div class="metadata">
+    try {
+      let trending = await ytrend.scrape_trending_page('US', false)
+      for (let i = 0; i < trending.length; i ++) {
+        let video = `
+        <div class="vid">
           <a href="watch?v=${trending[i].videoId}">
-            <p class="title">${trending[i].title}</p>
+            <img class="thumb" src="/api/proxy/https://i.ytimg.com/vi/${trending[i].videoId}/hqdefault.jpg">
           </a>
-          <a href="/creator/${trending[i].authorId}">
-            <p class="creator">${trending[i].author}</p>
-          </a>
-          <p class="smallData">${trending[i].timeText}</p>
+          <div class="metadata">
+            <a href="watch?v=${trending[i].videoId}">
+              <p class="title">${trending[i].title}</p>
+            </a>
+            <a href="/creator/${trending[i].authorId}">
+              <p class="creator">${trending[i].author}</p>
+            </a>
+            <p class="smallData">${trending[i].timeText}</p>
+          </div>
+        </div>
+        `
+        $( '#usTrendBar' ).append( video )
+      }
+    } catch {
+      let error = `
+      <div class="vid">
+        <img class="thumb" src="/error.png">
+        <div class="metadata">
+          <p class="title">Error!</p>
+          <p class="creator">tv.hazy.su</p>
+          <p class="smallData">Failed to load trending.</p>
         </div>
       </div>
       `
-      $( '#usTrendBar' ).append( video )
+      $( '#usTrendBar' ).append( error )
     }
 
     res.send($.html())
