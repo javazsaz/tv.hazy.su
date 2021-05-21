@@ -150,7 +150,7 @@ summary::marker {
   margin: 0px;
 }
 
-#descDetails {
+#commDetails {
   margin-bottom: 10px;
 }
 
@@ -315,4 +315,51 @@ summary::marker {
   width: calc(100% - 145px);
   float: left;
   font-family: 'lexenddeca', sans-serif;
+}
+
+.commentFrame {
+  border: 0px;
+}
+
+.commentObj {
+  display: block;
+  margin: 6 5;
+  width: calc(100% - 10px);
+  font-family: 'lexenddeca', sans-serif;
+  color: white;
+  font-size: 14px;
+  overflow: hidden;
+  padding-bottom: 4px;
+  border-bottom: 1px solid black;
+}
+
+.commentAvatar {
+  float: left;
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+  border-radius: 30px;
+}
+
+.commentMeta {
+  float: left;
+  width: calc(100% - 55px);
+}
+
+.commentAuthor {
+  font-weight: bold;
+}
+
+.commentFull {
+  margin-bottom: 5px;
+}
+
+.commentFull:checked + p {
+  max-height: none;
+}
+
+.commentText {
+  line-height: 16px;
+  max-height: calc(16px * 3);
+  overflow: hidden;
 }

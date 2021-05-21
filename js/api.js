@@ -6,6 +6,7 @@ module.exports = {
   channel: channel,
   playlist: playlist,
   trending: trending,
+  comments: comments,
   stats: stats,
   toggleProxy: toggleProxy
 }
@@ -16,6 +17,7 @@ const ytpl = require('ytpl')
 const ytsr = require('ytsr')
 const ytch = require('yt-channel-info')
 const ytrend = require("yt-trending-scraper")
+const ytcm = require("yt-comment-scraper")
 const config = require('./config')()
 
 async function proxyPage(req, res, next) {
@@ -90,6 +92,22 @@ async function playlist(req, res, next) {
     res.json(err)
     console.log(err)
   })
+}
+async function comments(req, res, next) {
+  let payload = {
+    videoId: req.query.v, // Required
+    sortByNewest: false,
+    setCookie: true
+  }
+  if (req.query.newest) {
+    payload.sortByNewest = true
+  }
+  try {
+    let commentDat = await ytcm.getComments(payload)
+    res.json(commentDat)
+  } catch (err) {
+    res.json(err.stack)
+  }
 }
 async function trending(req, res, next) {
   ytrend.scrape_trending_page(req.params.location, false).then((data) =>{
