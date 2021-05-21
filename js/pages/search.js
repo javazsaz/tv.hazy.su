@@ -29,7 +29,7 @@ async function genPage(req, res, next) {
                 <div class="result">
                   <a href="/watch?v=${data.items[i].id}">
                     <div class="thumb">
-                      <img class="staticThumb" src=${data.items[i].bestThumbnail.url}>
+                      <img class="staticThumb" src=/api/proxy/${data.items[i].bestThumbnail.url}>
                     </div>
                   </a>
                   <div class="suggestMeta">
@@ -49,7 +49,7 @@ async function genPage(req, res, next) {
                 <a href="/creator/${data.items[i].channelID}">
                   <div class="result">
                     <div class="avatar">
-                      <img class="staticThumb" src=${data.items[i].bestAvatar.url}>
+                      <img class="staticThumb" src=/api/proxy/${data.items[i].bestAvatar.url}>
                     </div>
                     <div class="resultMeta">
                       <p class="title">${data.items[i].name}</p>

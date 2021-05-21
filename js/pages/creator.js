@@ -32,7 +32,7 @@ async function genPage(req, res, next) {
           let video = `
           <a href="/watch?v=${vids.items[i].videoId}">
           <div class="vid">
-          <img class="thumb" src="https://i.ytimg.com/vi/${vids.items[i].videoId}/hqdefault.jpg">
+          <img class="thumb" src="/api/proxy/https://i.ytimg.com/vi/${vids.items[i].videoId}/hqdefault.jpg">
           <div class="metadata">
           <p class="title">${vids.items[i].title}</p>
           <p class="creator">${vids.items[i].author}</p>
@@ -51,7 +51,7 @@ async function genPage(req, res, next) {
             let video = `
             <a href="/watch?v=${vids.items[i].videoId}">
             <div class="vid">
-            <img class="thumb" src="https://i.ytimg.com/vi/${vids.items[i].videoId}/hqdefault.jpg">
+            <img class="thumb" src="/api/proxy/https://i.ytimg.com/vi/${vids.items[i].videoId}/hqdefault.jpg">
             <div class="metadata">
             <p class="title">${vids.items[i].title}</p>
             <p class="creator">${vids.items[i].author}</p>
