@@ -150,6 +150,10 @@ summary::marker {
   margin: 0px;
 }
 
+#descDetails {
+  margin-bottom: 6px;
+}
+
 #commDetails {
   margin-bottom: 10px;
 }
@@ -312,7 +316,7 @@ summary::marker {
 
 .viewCount {
   color: #aaaaaa;
-  width: calc(100% - 145px);
+  width: 100%;
   float: left;
   font-family: 'lexenddeca', sans-serif;
 }
