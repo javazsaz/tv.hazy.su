@@ -67,7 +67,11 @@ function genPage(req, res, next) {
       $( '#vidDate' ).text( `Published ${publishDate.toLocaleDateString('en-US', options)}` )
       $( '#views' ).text( views.toLocaleString('en-US') + ' views' )
       $( '#channelLink' ).attr('href', `/creator/${info.videoDetails.author.id}`)
-      $( '#authorAvatar' ).attr( 'src',  `/api/proxy/${info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url}` )
+      if (info.videoDetails.author.thumbnails.length!=0) {
+        $( '#authorAvatar' ).attr( 'src',  `/api/proxy/${info.videoDetails.author.thumbnails[info.videoDetails.author.thumbnails.length-1].url}` )
+      }else{
+        $( '#authorAvatar' ).attr( 'src',  `/watch/404.png` )
+      }
       $( '#authorName' ).text( info.videoDetails.author.name )
       if (info.videoDetails.description!=null) {
         let description = replaceContent(escapeHtml(info.videoDetails.description)).replace(/\n/g, "<br />")
