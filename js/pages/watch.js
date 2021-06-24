@@ -160,7 +160,7 @@ function genPage(req, res, next) {
       console.log(err)
       res.status(500).json({
         'message': "something went wrong. try refreshing the page. if this doesn't work, please submit an issue.",
-        'github issue page': "https://github.com/hazycora/tv.hazy.su/issues",
+        'github issue page': "https://github.com/hazysu/tv.hazy.su/issues",
         'error stack': err.stack})
     })
 
